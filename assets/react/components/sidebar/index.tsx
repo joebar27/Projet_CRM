@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import {BsBoxArrowRight} from "react-icons/bs";
+import {BsBoxArrowRight, BsList} from "react-icons/bs";
+import {AiFillHome} from "react-icons/ai";
+import {BiStats} from "react-icons/bi";
+import { Link } from "react-router-dom";
+
 
 interface IProps {
 
@@ -14,20 +18,20 @@ const Sidebar: React.FC<IProps> = () => {
             </Logo>
             <Rooter>
                 <ul>
-                    <li><a href={`home`}>Home</a></li>
-                    <li><a href={`clients`}>Client list</a></li>
+                    <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
+                    <li><Link to={"/clients"}><BsList/>Client liste</Link></li>
+                    <li><Link to={"/stats"}><BiStats/>Graphiques</Link></li>
                 </ul>
             </Rooter>
             <Logout>
-                <BsBoxArrowRight />
-                <a href={`logout`}> Lougout</a>
+                <Link to={"/logout"}><BsBoxArrowRight />sign out</Link>
             </Logout>
         </Container>
     );
 };
 
 const Container = styled.div`
-    background-color: #43434345;
+    background-color: #020202d4;
     width: 20%;
     height: 100vh;
     display: flex;
@@ -36,12 +40,14 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-    margin-top : 15%;
+    width: 100%;
+    background-color: #202920ba;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     img{
+        margin-top : 15%;
         width: 75%;
     }
 `;
@@ -51,23 +57,37 @@ const Rooter = styled.nav`
     width: 100%;
     margin-top: 5%;
     ul{
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         list-style: none;
+        font-family: 'Roboto', sans-serif;
         a{
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            color: #000;
+            color: #018d1b;
+            gap : 25px;
+            margin: 10% 0;
         }
     }
 `;  
 
 const Logout = styled.div`
-    margin-top: 160%;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     a{
+        width: 100%;
+        background-color: #202920ba;
+        font-size: 1.5rem;
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 2% 0;
         text-decoration: none;
-        color: #000;
+        color: #018d1b;
     }
 `;
 
