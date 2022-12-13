@@ -1,14 +1,16 @@
 import React from "react";
-import App from "./components/exemple"
 import {createRoot} from "react-dom/client";
 import Header from "./components/exemple";
-
+import { BrowserRouter } from "react-router-dom";
+import Sidebar from "./components/sidebar";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-
-    <Header title="Hello World" />
-
+    <BrowserRouter>
+        <Sidebar>
+            
+        </Sidebar>
+    </BrowserRouter>
 );
