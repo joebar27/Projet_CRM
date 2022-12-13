@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
 import {BiStats} from "react-icons/bi";
-import { Link } from "react-router-dom";
+
 
 
 interface IProps {
 
 }
 
-const Sidebar: React.FC<IProps> = () => {
+const SidebarLeft: React.FC<IProps> = () => {
     return(
         <Container>
             <Logo>
@@ -19,7 +20,7 @@ const Sidebar: React.FC<IProps> = () => {
             <Rooter>
                 <ul>
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
-                    <li><Link to={"/clients"}><BsList/>Client liste</Link></li>
+                    <li><Link to={"/clients"}><BsList/>Client list</Link></li>
                     <li><Link to={"/stats"}><BiStats/>Graphiques</Link></li>
                 </ul>
             </Rooter>
@@ -32,7 +33,7 @@ const Sidebar: React.FC<IProps> = () => {
 
 const Container = styled.div`
     background-color: #020202d4;
-    width: 20%;
+    width: 15%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -92,4 +93,4 @@ const Logout = styled.div`
 `;
 
 
-export default Sidebar;
+export default SidebarLeft;
