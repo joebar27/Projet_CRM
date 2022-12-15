@@ -13,22 +13,22 @@ const SidebarRight: React.FC<IProps> = () => {
                 <Link to={"/profil"}><img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="profil picture" /></Link>
             </Profil>
             <Actions>
-                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/1160/1160358.png" alt=""/></Link>
-                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/1160/1160358.png" alt=""/></Link>
-                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/1160/1160358.png" alt=""/></Link>
+                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/1242/1242392.png" alt=""/></Link>
+                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/2740/2740651.png" alt=""/></Link>
+                <Link to={"/test"}><img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt=""/></Link>
             </Actions>
         </Container>
     );
 }
 
 const Container = styled.div`
-    background-color: #020202d4;
+    background-color: #336b6f;
     width: 7%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    padding : 10px;
 `;
 
 const Profil = styled.div`
@@ -50,9 +50,8 @@ const Actions = styled.div`
     align-items: center;
     justify-content: space-between;
     img{
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
+        width: 30px;
+        height: 30px;
     }
 `;
 

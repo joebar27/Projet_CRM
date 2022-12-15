@@ -15,13 +15,13 @@ const SidebarLeft: React.FC<IProps> = () => {
     return(
         <Container>
             <Logo>
-                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Logo" />
+                <img src="https://freesvg.org/img/Google_logo_white_2015.png" alt="Logo" />
             </Logo>
             <Rooter>
                 <ul>
-                    <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
-                    <li><Link to={"/clients"}><BsList/>Client list</Link></li>
-                    <li><Link to={"/stats"}><BiStats/>Graphiques</Link></li>
+                    <li><Link to={"/"}><img src="https://cdn-icons-png.flaticon.com/512/2195/2195102.png" alt="" />Dashboard</Link></li>
+                    <li><Link to={"/clients"}><img src="https://cdn-icons-png.flaticon.com/512/3126/3126647.png" alt="" />Client list</Link></li>
+                    <li><Link to={"/stats"}><img src="https://cdn-icons-png.flaticon.com/512/1/1059.png" alt="" />Graphiques</Link></li>
                 </ul>
             </Rooter>
             <Logout>
@@ -32,21 +32,23 @@ const SidebarLeft: React.FC<IProps> = () => {
 };
 
 const Container = styled.div`
-    background-color: #020202d4;
-    width: 15%;
+    background-color: #336b6f;
+    width: 40%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    // border-radius: 0px 35px 35px 0px;
 `;
 
 const Logo = styled.div`
     width: 100%;
-    background-color: #202920ba;
+    background-color: #336b6f;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    // border-radius: 0px 35px 0px 0px;
     img{
         margin-top : 15%;
         width: 75%;
@@ -65,9 +67,14 @@ const Rooter = styled.nav`
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: #018d1b;
+            color: white;
             gap : 25px;
             margin: 10% 0;
+        }
+
+        img{
+            with : 25px;
+            height : 25px;
         }
     }
 `;  
@@ -79,7 +86,6 @@ const Logout = styled.div`
     width: 100%;
     a{
         width: 100%;
-        background-color: #202920ba;
         font-size: 1.5rem;
         font-family: 'Roboto', sans-serif;
         display: flex;
@@ -88,7 +94,7 @@ const Logout = styled.div`
         gap: 10px;
         padding: 2% 0;
         text-decoration: none;
-        color: #018d1b;
+        color: white;
     }
 `;
 

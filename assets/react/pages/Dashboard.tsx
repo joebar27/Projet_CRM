@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import SidebarLeft from "../components/sidebarLeft";
 import SidebarRight from "../components/sidebarRight";
+import Bodyleft from "../components/bodyleft";
+import BodyRight from "../components/bodyright";
 
 
 interface IProps {
@@ -14,6 +16,8 @@ const Dashboard : React.FC<IProps> = () => {
 
         <Container>
             <SidebarLeft></SidebarLeft>
+            <Bodyleft></Bodyleft>
+            <BodyRight></BodyRight>
             <SidebarRight></SidebarRight>
         </Container>
     );
