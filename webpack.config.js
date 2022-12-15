@@ -13,7 +13,7 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
 
-    .addEntry('app', './assets/react/index.js')
+    .addEntry('app', './assets/react/App.tsx')
     .addStyleEntry('style', './assets/styles/style.scss')
 
     .splitEntryChunks()
@@ -33,6 +33,8 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
+
+    .enableBabelTypeScriptPreset()
 
     .enableSassLoader()
     // enable react
