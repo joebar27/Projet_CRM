@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import LoginForm from "../components/LoginForm";
 
 interface IProps {
 
@@ -7,9 +8,7 @@ interface IProps {
 
 const Login: React.FC<IProps> = (props) => {
     return (
-        <div>
-            <h1>Login</h1>
-        </div>
+        <LoginForm />
     );
 }
 
