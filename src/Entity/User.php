@@ -3,168 +3,215 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
+#[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $First_name = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column(type: 'json')]
+    private ?string $password = null;
+
+    private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Last_name = null;
+    private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Address = null;
+    private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $City = null;
+    private ?string $address = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $ZipCode = null;
+    private ?string $city = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Mail = null;
+    private ?string $zipCode = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Phone = null;
+    private ?string $phoneNumber = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $Updated_date = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $Created_date = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $Deleted_date = null;
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getEmail(): ?string
     {
-        return $this->First_name;
+        return $this->email;
     }
 
-    public function setFirstName(string $First_name): self
+    public function setEmail(string $email): self
     {
-        $this->First_name = $First_name;
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->Last_name;
+        return $this->lastName;
     }
 
-    public function setLastName(string $Last_name): self
+    public function setLastName(string $lastName): self
     {
-        $this->Last_name = $Last_name;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     public function getAddress(): ?string
     {
-        return $this->Address;
+        return $this->address;
     }
 
-    public function setAddress(string $Address): self
+    public function setAddress(string $address): self
     {
-        $this->Address = $Address;
+        $this->address = $address;
 
         return $this;
     }
 
     public function getCity(): ?string
     {
-        return $this->City;
+        return $this->city;
     }
 
-    public function setCity(string $City): self
+    public function setCity(string $city): self
     {
-        $this->City = $City;
+        $this->city = $city;
 
         return $this;
     }
 
     public function getZipCode(): ?string
     {
-        return $this->ZipCode;
+        return $this->zipCode;
     }
 
-    public function setZipCode(string $ZipCode): self
+    public function setZipCode(string $zipCode): self
     {
-        $this->ZipCode = $ZipCode;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
 
     public function getMail(): ?string
     {
-        return $this->Mail;
+        return $this->mail;
     }
 
-    public function setMail(string $Mail): self
+    public function getPhoneNumber(): ?string
     {
-        $this->Mail = $Mail;
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->Phone;
+        return $this->createdAt;
     }
 
-    public function setPhone(string $Phone): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->Phone = $Phone;
-
-        return $this;
-    }
-
-    public function getUpdatedDate(): ?\DateTimeInterface
-    {
-        return $this->Updated_date;
-    }
-
-    public function setUpdatedDate(?\DateTimeInterface $Updated_date): self
-    {
-        $this->Updated_date = $Updated_date;
-
-        return $this;
-    }
-
-    public function getCreatedDate(): ?\DateTimeInterface
-    {
-        return $this->Created_date;
-    }
-
-    public function setCreatedDate(\DateTimeInterface $Created_date): self
-    {
-        $this->Created_date = $Created_date;
-
-        return $this;
-    }
-
-    public function getDeletedDate(): ?\DateTimeInterface
-    {
-        return $this->Deleted_date;
-    }
-
-    public function setDeletedDate(?\DateTimeInterface $Deleted_date): self
-    {
-        $this->Deleted_date = $Deleted_date;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
