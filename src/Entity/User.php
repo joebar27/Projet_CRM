@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -18,35 +19,97 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email(message: 'Format de l\'adresse email n\'est pas valide')]
+    #[Assert\Length(
+        min: 2, 
+        max: 50, 
+        minMessage: 'L\'adresse email doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'L\'adresse email doit faire au plus {{ limit }} caractères'
+        )]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 8, 
+        max: 50, 
+        minMessage: 'Le mot de passe doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'Le mot de passe doit faire au plus {{ limit }} caractères'
+        )]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        message: 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial'
+        )]
     private ?string $password = null;
 
     private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2, 
+        max: 60, 
+        minMessage: 'Le prénom doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'Le prénom doit faire au plus {{ limit }} caractères'
+        )]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2, 
+        max: 60, 
+        minMessage: 'Le nom doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'Le nom doit faire au plus {{ limit }} caractères'
+        )]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2, 
+        max: 255, 
+        minMessage: 'L\'adresse doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'L\'adresse doit faire au plus {{ limit }} caractères'
+        )]
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2, 
+        max: 120, 
+        minMessage: 'La ville doit faire au moins {{ limit }} caractères', 
+        maxMessage: 'La ville doit faire au plus {{ limit }} caractères'
+        )]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 6, 
+        max: 6,
+        minMessage: 'Le code postale doit faire {{ limit }} caractères', 
+        maxMessage: 'Le code postale doit faire {{ limit }} caractères'
+        )]
     private ?string $zipCode = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 10, 
+        max: 10, 
+        minMessage: 'Le numero doit faire {{ limit }} caractères', 
+        maxMessage: 'Le numero doit faire {{ limit }} caractères'
+        )]
     private ?string $phoneNumber = null;
 
     #[ORM\Column]
@@ -185,11 +248,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zipCode = $zipCode;
 
         return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
     }
 
     public function getPhoneNumber(): ?string
