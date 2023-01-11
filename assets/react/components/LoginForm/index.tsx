@@ -41,10 +41,10 @@ const login = async (e:any) => {
         password: formData.get('password')
     };
     
-    let reponse = await apiFetcher.postApiFetcher('http://localhost:8000/api/login', data);
+    let reponse = await apiFetcher.postApiFetcher('/api/login', data);
 
     console.log(reponse);
-
+        //redirect to dashboard
 }
 
 const Container = styled.div`
