@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
+import apiFetcher from '../../services/apiFetcher';
 
 interface IProps {
 
@@ -8,15 +10,42 @@ interface IProps {
 const LoginForm: React.FC<IProps> = () => {
     return(
         <Container>
-            <Form>
+            <Form onSubmit={login}>
                 <Title>Connexion</Title>
-                <Input type="text" placeholder="Email"/>
-                <Input type="password" placeholder="Mot de passe"/>
+                <Input 
+                    type="text" 
+                    placeholder="Email"
+                    name ='email'
+                    
+                />
+                <Input 
+                    type="password" 
+                    placeholder="Mot de passe"
+                    name ='password'
+                    
+                />
                 <Button>Se connecter</Button>
             </Form>
         </Container>
     );
 };
+
+
+const login = async (e:any) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const data:any = {
+        email: formData.get('email'),
+        password: formData.get('password')
+    };
+    
+    let reponse = await apiFetcher.postApiFetcher('http://localhost:8000/api/login', data);
+
+    console.log(reponse);
+
+}
 
 const Container = styled.div`
     display: flex;
