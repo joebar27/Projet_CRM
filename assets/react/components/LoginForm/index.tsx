@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from '../../../img/logo.svg';
 
 interface IProps {
 
@@ -9,6 +10,7 @@ const LoginForm: React.FC<IProps> = () => {
     return(
         <Container>
             <Form>
+                <Image src={logo} alt="Logo"></Image>
                 <Title>Connexion</Title>
                 <Input type="text" placeholder="Email"/>
                 <Input type="password" placeholder="Mot de passe"/>
@@ -34,12 +36,13 @@ const Form = styled.form`
     justify-content: center;
     width: 30%;
     height: 50%;
-    background-color: #020202d4;
+    background-color: #FFFFFF;
     border-radius: 10px;
+    border: 5px solid #0a0047;
 `;
 
 const Title = styled.h1`
-    color: white;
+    color: #0a0047;
     font-size: 2rem;
     margin-bottom: 2rem;
 `;
@@ -47,23 +50,26 @@ const Title = styled.h1`
 const Input = styled.input`
     width: 80%;
     height: 2rem;
-    border-radius: 5px;
-    border: none;
+    border-radius: 15px;
+    border: 2px solid #0a0047;
     margin-bottom: 1rem;
     padding-left: 1rem;
 `;
 
 const Button = styled.button`
-    width: 80%;
+    width:  85%;
     height: 2rem;
-    border-radius: 5px;
+    border-radius: 15px;
+    background-color: #0a0047;
     border: none;
-    background-color: #020202d4;
     color: white;
     font-size: 1rem;
     cursor: pointer;
 `;
 
+const Image = styled.img`
+    width : 30%;
+`;
 
 
 export default LoginForm;
