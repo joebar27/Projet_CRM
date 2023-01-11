@@ -32,7 +32,7 @@ const SidebarLeft: React.FC<IProps> = () => {
 };
 
 const Container = styled.div`
-    background-color: #336b6f;
+    background-color: #6f6af8;
     width: 40%;
     height: 100vh;
     display: flex;
@@ -43,7 +43,7 @@ const Container = styled.div`
 
 const Logo = styled.div`
     width: 100%;
-    background-color: #336b6f;
+    background-color: #6f6af8;
     display: flex;
     justify-content: center;
     align-items: center;
