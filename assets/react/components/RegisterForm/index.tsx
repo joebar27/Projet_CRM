@@ -1,0 +1,120 @@
+import React from 'react';
+import styled from 'styled-components';
+import ReactDOM from 'react-dom';
+import apiFetcher from '../../services/apiFetcher';
+import logo from '../../../img/logo.svg';
+
+interface IProps {
+
+}
+
+const RegisterForm: React.FC<IProps> = () => {
+    return(
+        <Container>
+            <Form onSubmit={login}>
+                <Image src={logo} alt="Logo"></Image>
+                <Title>Inscription</Title>
+                <Input 
+                    type="text" 
+                    placeholder="Nom"
+                    name ='lastname'
+                    
+                />
+
+                <Input 
+                    type="text" 
+                    placeholder="Prénom"
+                    name ='firstname'
+                    
+                />
+                
+                <Input 
+                    type="text" 
+                    placeholder="Email"
+                    name ='email'
+                    
+                />
+                <Input 
+                    type="password" 
+                    placeholder="Mot de passe"
+                    name ='password'
+                    
+                />
+                <Button>S'enregistrer</Button>
+            </Form>
+        </Container>
+    );
+};
+
+
+const login = async (e:any) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const data:any = {
+        firstname: formData.get('firstname'),
+        lastname: formData.get('lastname'),
+        email: formData.get('email'),
+        password: formData.get('password')
+    };
+    
+    let reponse = await apiFetcher.postApiFetcher('/api/login', data);
+
+    console.log(reponse);
+        //redirect to dashboard
+}
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+`;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 70%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border: 5px solid #0a0047;
+`;
+
+const Title = styled.h1`
+    color: #0a0047;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+`;
+
+const Input = styled.input`
+    width: 80%;
+    height: 2rem;
+    border-radius: 15px;
+    border: 2px solid #0a0047;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+`;
+
+const Button = styled.button`
+    width:  85%;
+    height: 2rem;
+    border-radius: 15px;
+    background-color: #0a0047;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+`;
+
+const Image = styled.img`
+    width : 30%;
+`;
+
+
+export default RegisterForm;
