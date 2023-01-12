@@ -49,7 +49,7 @@ const Description = styled.div`
 const Date = styled.div`
     width: 40%;
     height : 5vh;
-    color : #336b6f;
+    color : #6f6af8;
     font-weight:bold;
     font-size:18px;
     display: flex;
@@ -71,7 +71,7 @@ const Button = styled.div`
 
 export const LinkButton = styled(Link)`
     width: 100%;
-    background-color: #336b6f;
+    background-color: #6f6af8;
     margin-right: 5%;
     display: flex;
     justify-content: center;

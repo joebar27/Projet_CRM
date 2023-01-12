@@ -50,7 +50,7 @@ const Planning = styled.div`
     background-repeat: no-repeat;
     flex-direction: column;
     background-color : #d9d9d9;
-    color : #336b6f;
+    color : #6f6af8;
     font-weight: 600;
     font-family: 'Oswald', sans-serif;
 
@@ -93,7 +93,7 @@ const Button = styled.div`
 
 export const LinkButton = styled(Link)`
     width: 100%;
-    background-color: #336b6f;
+    background-color: #6f6af8;
     margin-right: 5%;
     display: flex;
     justify-content: center;

@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
 import {BiStats} from "react-icons/bi";
-
+import {ImUsers} from "react-icons/im";
+import {GoGraph} from "react-icons/go";
+import {AiOutlineLogout} from "react-icons/ai";
 
 
 interface IProps {
@@ -19,20 +21,20 @@ const SidebarLeft: React.FC<IProps> = () => {
             </Logo>
             <Rooter>
                 <ul>
-                    <li><Link to={"/"}><img src="https://cdn-icons-png.flaticon.com/512/2195/2195102.png" alt="" />Dashboard</Link></li>
-                    <li><Link to={"/clients"}><img src="https://cdn-icons-png.flaticon.com/512/3126/3126647.png" alt="" />Client list</Link></li>
-                    <li><Link to={"/stats"}><img src="https://cdn-icons-png.flaticon.com/512/1/1059.png" alt="" />Graphiques</Link></li>
+                    <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
+                    <li><Link to={"/clients"}><ImUsers/>Client list</Link></li>
+                    <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
                 </ul>
             </Rooter>
             <Logout>
-                <Link to={"/logout"}><BsBoxArrowRight />sign out</Link>
+                <Link to={"/logout"}><AiOutlineLogout />sign out</Link>
             </Logout>
         </Container>
     );
 };
 
 const Container = styled.div`
-    background-color: #336b6f;
+    background-color: #6f6af8;
     width: 40%;
     height: 100vh;
     display: flex;
@@ -43,7 +45,7 @@ const Container = styled.div`
 
 const Logo = styled.div`
     width: 100%;
-    background-color: #336b6f;
+    background-color: #6f6af8;
     display: flex;
     justify-content: center;
     align-items: center;
