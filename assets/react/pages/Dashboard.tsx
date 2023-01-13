@@ -4,7 +4,8 @@ import SidebarLeft from "../components/sidebarLeft";
 import SidebarRight from "../components/sidebarRight";
 import Bodyleft from "../components/bodyleft";
 import BodyRight from "../components/bodyright";
-
+import jwtDecode from "../services/jwtDecode";
+import authentificationService from "../services/authentificationService";
 
 interface IProps {
 
@@ -12,15 +13,19 @@ interface IProps {
 
 
 const Dashboard : React.FC<IProps> = () => {
-    return(
-
-        <Container>
-            <SidebarLeft></SidebarLeft>
-            <Bodyleft></Bodyleft>
-            <BodyRight></BodyRight>
-            <SidebarRight></SidebarRight>
-        </Container>
-    );
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        return(
+            <Container>
+                <SidebarLeft></SidebarLeft>
+                <Bodyleft></Bodyleft>
+                <BodyRight></BodyRight>
+                <SidebarRight></SidebarRight>
+            </Container>
+        );
+    }
+    else {
+        alert('Vous n\'avez pas les droits pour accéder à cette page');
+    }
 };
 
 const Container = styled.div`

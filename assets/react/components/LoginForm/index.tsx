@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom';
 import apiFetcher from '../../services/apiFetcher';
 import logo from '../../../img/logo.svg';
+import authentificationService from '../../services/authentificationService';
+
 
 interface IProps {
 
@@ -42,11 +43,13 @@ const login = async (e:any) => {
         username: formData.get('email'),
         password: formData.get('password')
     };
-    
-    let reponse = await apiFetcher.postApiFetcher('/api/login_check', data);
 
-    console.log(reponse);
-        //redirect to dashboard
+    //decodage du token et mise en session
+    let reponse = await apiFetcher.postApiFetcher('/api/login_check', data)
+    authentificationService.loggin(reponse.token);
+    
+    // redirection vers la page d'accueil
+    window.location.href = '/';
 }
 
 const Container = styled.div`
