@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('api/register', name: 'app_api_register')]
     public function index(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         /*
@@ -33,8 +33,9 @@ class RegisterController extends AbstractController
         $formData = $request->getContent();
         $data = json_decode($formData, true);
         $user = $userRepository->findOneBy(['email' => $data['email']]);
-
+dd("par-ici");
         if (!$user) {
+            dd("ici");
             $newUser = new User();
             $newUser->setEmail($data['email']);
             $newUser->setRoles($data['role']);
@@ -61,9 +62,10 @@ class RegisterController extends AbstractController
         } else {
             return $this->json([$user, 'status' => 'User exist', 'message' => 'User exist'], Response::HTTP_UNAUTHORIZED, );
         }
+dd("la");
     }
 
-    #[Route('/userModif/{id}', name: 'app_user_modif')]
+    #[Route('api/userModif/{id}', name: 'app_api_usermodif')]
     public function updateUser(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         /*
