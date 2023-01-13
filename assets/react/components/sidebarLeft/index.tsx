@@ -24,7 +24,7 @@ const SidebarLeft: React.FC<IProps> = () => {
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
                     <li><Link to={"/clients"}><ImUsers/>Client list</Link></li>
                     <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
-                    <li><Link to={"/stats"}><GoGraph/>Inscription</Link></li>
+                    <li><Link to={"/register"}><GoGraph/>Inscription</Link></li>
                 </ul>
             </Rooter>
             <Logout>
