@@ -14,8 +14,8 @@ class DevisFacture
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $society_infos = null;
+    #[ORM\Column(nullable: true)]
+    private array $society_infos = [];
 
     #[ORM\Column(nullable: true)]
     private array $article_infos = [];
