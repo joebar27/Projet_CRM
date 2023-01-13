@@ -6,30 +6,47 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use ContainerPPnd9ba\getLexikJwtAuthentication_EncoderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiLoginController extends AbstractController
 {
     
-
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
+    /* public function __construct(private UserPasswordHasherInterface $passwordHasher, private JWTEncoderInterface $jwtEncoder)
     {
+    } */
 
-    }
-
-    #[Route('/api/login', name: 'app_api_login')]
+    /* #[Route('/api/login', name: 'app_api_login')]
     public function login(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository): Response
     {
+        if (!$request->isXmlHttpRequest()) {
+            return $this->json([ 'error' => 'Not an ajax request' ], Response::HTTP_UNAUTHORIZED);
+        }
+
         $formData = $request->getContent();
         $data = json_decode($formData, true);
         $user = $userRepository->findOneBy(['email' => $data['email']]);
         
         if ($user) {
             $password = $data['password'];
+            $userdetails= [ 
+                'id' => $user->getId(), 
+                'email' => $user->getEmail(), 
+                'roles' => $user->getRoles(),
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
+                'phone' => $user->getPhoneNumber(),
+                'address' => $user->getAddress(),
+                'city' => $user->getCity(),
+                'zip_code' => $user->getZipCode(),
+            ];
+            $jwt = $this->jwtEncoder->encode($userdetails);
+            dd($jwt);
             if($passwordHasher->isPasswordValid($user, $password)){
-                return $this->json(['status' => 'success', 'message' => 'Login successful'], Response::HTTP_OK,);
+                return $this->json( [$jwt,'status' => 'success', 'message' => 'Login successful'], Response::HTTP_OK,);
             }
             else {
                 return $this->json(['status' => 'error', 'message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED,);
@@ -37,26 +54,26 @@ class ApiLoginController extends AbstractController
         }else {
             return $this->json(['status' => 'error', 'message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED,);
         }
-    }
+    } */
 
-    #[Route('/api/register', name: 'app_api_register')]
-    public function register(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository): Response
-    {
-        $formData = $request->getContent();
-        $data = json_decode($formData, true);
-        //$user = $userRepository->findOneBy(['email' => $data['email']]);
+    // #[Route('/api/register', name: 'app_api_register')]
+    // public function register(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository): Response
+    // {
+    //     $formData = $request->getContent();
+    //     $data = json_decode($formData, true);
+    //     //$user = $userRepository->findOneBy(['email' => $data['email']]);
         
-        if (!$user) {
-            $password = $data['password'];
-            $password = $passwordHasher->hashPassword($user, $password);
-            if($password === $user->getPassword()){
-                return json_encode([ $user, 'status' => 'success', 'message' => 'Login successful', Response::HTTP_OK,]);
-            }
-            else {
-                return json_encode(['status' => 'error', 'message' => 'Invalid credentials', Response::HTTP_UNAUTHORIZED,]);
-            }
-        }else {
-            return json_encode(['status' => 'error', 'message' => 'Invalid credentials', Response::HTTP_UNAUTHORIZED,]);
-        }
-    }
+    //     if (!$user) {
+    //         $password = $data['password'];
+    //         $password = $passwordHasher->hashPassword($user, $password);
+    //         if($password === $user->getPassword()){
+    //             return json_encode([ $user, 'status' => 'success', 'message' => 'Login successful', Response::HTTP_OK,]);
+    //         }
+    //         else {
+    //             return json_encode(['status' => 'error', 'message' => 'Invalid credentials', Response::HTTP_UNAUTHORIZED,]);
+    //         }
+    //     }else {
+    //         return json_encode(['status' => 'error', 'message' => 'Invalid credentials', Response::HTTP_UNAUTHORIZED,]);
+    //     }
+    // }
 }

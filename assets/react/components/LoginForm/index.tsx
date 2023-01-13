@@ -39,11 +39,11 @@ const login = async (e:any) => {
     const formData = new FormData(e.target);
 
     const data:any = {
-        email: formData.get('email'),
+        username: formData.get('email'),
         password: formData.get('password')
     };
     
-    let reponse = await apiFetcher.postApiFetcher('/api/login', data);
+    let reponse = await apiFetcher.postApiFetcher('/api/login_check', data);
 
     console.log(reponse);
         //redirect to dashboard
