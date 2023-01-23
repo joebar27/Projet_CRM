@@ -41,6 +41,9 @@ class Articles
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $deleted_date = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $reference = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class Articles
     public function setDeletedDate(\DateTimeInterface $deleted_date): self
     {
         $this->deleted_date = $deleted_date;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }
