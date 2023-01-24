@@ -25,8 +25,11 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@stripe/react-stripe-js": "^1.16.4",
+        "@stripe/stripe-js": "^1.46.0",
         "@types/react-icons": "^3.0.0",
         "@types/react-router-dom": "^5.3.3",
+        "axios": "^1.2.3",
         "localforage": "^1.10.0",
         "match-sorter": "^6.3.1",
         "prop-types": "^15.8.1",
