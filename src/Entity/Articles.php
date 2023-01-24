@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ArticlesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Null_;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
@@ -150,7 +151,7 @@ class Articles
         return $this->deleted_date;
     }
 
-    public function setDeletedDate(\DateTimeInterface $deleted_date): self
+    public function setDeletedDate(\DateTimeInterface $deleted_date = null): self
     {
         $this->deleted_date = $deleted_date;
 
