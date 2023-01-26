@@ -43,12 +43,12 @@ class DevisFacture
         return $this->id;
     }
 
-    public function getSocietyInfos(): ?string
+    public function getSocietyInfos(): array
     {
         return $this->society_infos;
     }
 
-    public function setSocietyInfos(string $society_infos): self
+    public function setSocietyInfos(?array $society_infos): self
     {
         $this->society_infos = $society_infos;
 
