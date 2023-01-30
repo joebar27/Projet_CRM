@@ -33,7 +33,7 @@ class Society
     private ?string $city = null;
 
     #[ORM\Column]
-    private ?int $zip_code = null;
+    private ?string $zip_code = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -127,12 +127,12 @@ class Society
         return $this;
     }
 
-    public function getZipCode(): ?int
+    public function getZipCode(): ?string
     {
         return $this->zip_code;
     }
 
-    public function setZipCode(int $zip_code): self
+    public function setZipCode(string $zip_code): self
     {
         $this->zip_code = $zip_code;
 
