@@ -3,24 +3,26 @@ import styled from 'styled-components';
 import apiFetcher from '../../services/apiFetcher';
 import logo from '../../../img/logo.svg';
 import authentificationService from '../../services/authentificationService';
+import { useForm } from "react-hook-form";
+import Errors from '../../services/errors';
+
 
 
 interface IProps {
 
 }
 
+
+
 const LoginForm: React.FC<IProps> = () => {
+    const { register, formState: { errors } } = useForm();
     return(
         <Container>
             <Form onSubmit={login}>
                 <Image src={logo} alt="Logo"></Image>
                 <Title>Connexion</Title>
-                <Input 
-                    type="text" 
-                    placeholder="Email"
-                    name ='email'
-                    
-                />
+                <Input {...register("email")} type="email" placeholder="Email" name ='email' minLength={8}/>
+                {errors.email && <p>{errors.email.types.required}</p>}
                 <Input 
                     type="password" 
                     placeholder="Mot de passe"
@@ -37,19 +39,31 @@ const LoginForm: React.FC<IProps> = () => {
 const login = async (e:any) => {
     e.preventDefault();
 
+
     const formData = new FormData(e.target);
 
     const data:any = {
-        username: formData.get('email'),
+        email: formData.get('email'),
         password: formData.get('password')
     };
 
+
+    console.log(data.email);
+    
+
+
+    if (data.email === '') {
+        console.log('email vide');
+        Errors();
+    }
+
     //decodage du token et mise en session
-    let reponse = await apiFetcher.postApiFetcher('/api/login_check', data)
-    authentificationService.loggin(reponse.token);
+    //let reponse = await apiFetcher.postApiFetcher('/api/login_check', data);
+    //authentificationService.loggin(reponse.token);
+    //console.log(reponse.token);
     
     // redirection vers la page d'accueil
-    window.location.href = '/';
+    //window.location.href = '/';
 }
 
 const Container = styled.div`
