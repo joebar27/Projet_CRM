@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-    #[Route('api/register', name: 'api_register')]
+    #[Route('/api/register', name: 'api_register')]
     public function register(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $formData = $request->getContent();
@@ -51,7 +51,7 @@ class RegisterController extends AbstractController
         // dd("la");
     }
 
-    #[Route('api/userModify/{id}', name: 'api_usermodify')]
+    #[Route('/api/userModify/{id}', name: 'api_usermodify')]
     public function updateUser(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         /*
