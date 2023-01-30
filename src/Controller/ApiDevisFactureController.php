@@ -15,9 +15,10 @@ class ApiDevisFactureController extends AbstractController
     #[Route('/api/devis', name: 'api_devis')]
     public function getAllDevis(DevisFactureRepository $devisFactureRepository): Response
     {
-        // récupération de tous les devis et facture en BDD:
+        // récupération de tous les devis en BDD :
+
         $devis = $devisFactureRepository->findBy( ['status_payment' => 'devis'] );
-        // affichage des devis:
+
         if (!$devis) {
             return $this->json(['status' => 'devis not found', 'message' => 'Aucun devis n\'a été trouvé'], Response::HTTP_UNAUTHORIZED, );
         }
@@ -30,9 +31,10 @@ class ApiDevisFactureController extends AbstractController
     #[Route('/api/facture', name: 'api_facture')]
     public function getAllFacture(DevisFactureRepository $devisFactureRepository): Response
     {
-        // récupération de tous les devis et facture en BDD:
+        // récupération de toutes les factures en BDD :
+
         $facture = $devisFactureRepository->findBy( ['status_payment' => 'facture'] );
-        // affichage des devis:
+        
         if (!$facture) {
             return $this->json(['status' => 'facture not found', 'message' => 'Aucune facture n\'a été trouvé'], Response::HTTP_UNAUTHORIZED, );
         }
@@ -45,6 +47,8 @@ class ApiDevisFactureController extends AbstractController
     #[Route('/api/adddevis', name: 'api_add_devis')]
     public function addDevis(Request $request, ManagerRegistry $doctrine): Response
     {
+        // Ajout d'un devis en BDD :
+
         $formData = $request->getContent();
         $data = json_decode($formData, true);
         
