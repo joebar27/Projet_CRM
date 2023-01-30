@@ -112,7 +112,7 @@ const LoginForm: React.FC = () => {
 
         setLoading(false);
         // redirection vers la page d'accueil
-        //window.location.href = '/';
+        window.location.href = '/';
         
     }
 
