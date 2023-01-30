@@ -38,9 +38,9 @@ const postApiFetcher = async ($url:any, credentials:IFormData ) =>{
             ...apiOps,
             method: 'POST',
             body: JSON.stringify(credentials),
-        }).then(res => {
+        }).then(res => res.json()).then(json => {
             response.success = true;
-            response['data'] = res.json();
+            response['data'] = json;
         }).catch(err => {
             response.error = err && err.response && err.response.data ? err.response.data : err.message ;
         });

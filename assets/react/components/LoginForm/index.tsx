@@ -4,13 +4,6 @@ import apiFetcher from '../../services/apiFetcher';
 import logo from '../../../img/logo.svg';
 import authentificationService from '../../services/authentificationService';
 import Loader from '../Loader';
-import e, { response } from 'express';
-import { userInfo } from 'os';
-
-interface IProps {
-
-}
-
 
 
 const LoginForm: React.FC = () => {
@@ -42,9 +35,6 @@ const LoginForm: React.FC = () => {
             setErrorPassword('Veuillez remplir ce champ');
             setPassword('');
             setColorPass('#bb0000');
-        }else if(password.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$") === null ){
-            setErrorPassword('Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
-            setColorPass('#bb0000');
         }else{
             setErrorPassword('');
             setColorPass('#0a0047');
@@ -74,10 +64,7 @@ const LoginForm: React.FC = () => {
         setLoading(true);
         setSubmited(true);
         
-        
-
         const formData = new FormData(e.target);
-    
         const data:any = {
             username: formData.get('email'),
             password: formData.get('password')
@@ -93,35 +80,26 @@ const LoginForm: React.FC = () => {
             setLoading(false);
             return;
         }
-    
-        console.log(data.username);
-        
         
         let reponse = await apiFetcher.postApiFetcher('/api/login_check', data);
         console.log(reponse);
 
-        if(!reponse.success){
-            setError(reponse.error);
+        console.log(reponse.data.token);
+        if(reponse.data.token === undefined){
+            setError(reponse.data.message);
+            setLoading(false);
             return;
-        }else if(reponse.data){
+        }else if(reponse.data.token){
             setError('')
             authentificationService.loggin(reponse.data.token);
+            setLoading(false);
         }
 
-
-
-        setLoading(false);
         // redirection vers la page d'accueil
-        window.location.href = '/';
-        
+        window.location.href = '/'; 
     }
 
     return(
-        <>
-        <Content>
-                {isLoading && <Loader/>}
-                {error && <p className="text-danger">{error}</p>}
-        </Content>
         <Container>
             <Form onSubmit={login}>
                 <Image src={logo} alt="Logo"></Image>
@@ -130,7 +108,6 @@ const LoginForm: React.FC = () => {
                     onClick={(e) => {
                         if (e.target.value === "") {
                             setEmail('*');
-                            console.log(email, "ici");
                         }}
                     }
                     onChange={ (e) =>
@@ -162,9 +139,12 @@ const LoginForm: React.FC = () => {
                     {errorPassword && <p className="text-danger">{errorPassword}</p>}
                 </Content>
                 <Button >Se connecter</Button>
+                <Content>
+                    {isLoading && <Loader/>}
+                    {error && <p className="text-danger">{error}</p>}
+                </Content>
             </Form>
         </Container>
-        </>
     );
 };
 
