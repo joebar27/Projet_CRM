@@ -27,6 +27,7 @@ const Dashboard : React.FC<IProps> = () => {
         window.location.href = '/login';
     }else{
         alert('Vous n\'avez pas les droits pour accéder à cette page');
+        window.location.href = '/login';
     }
 };
 
