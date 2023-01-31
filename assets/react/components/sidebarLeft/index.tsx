@@ -29,7 +29,8 @@ const SidebarLeft: React.FC<IProps> = () => {
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
                     <li><Link to={"/clients"}><ImUsers/>Listes</Link></li>
                     <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
-                    <li><Link to={"/stats"}><GoGraph/>Gestion utilisateurs</Link></li>
+                    <li><Link to={"/register"}><GoGraph/>Gestion utilisateurs</Link></li>
+                    <li><Link to={"/articles"}><GoGraph/>Articles</Link></li>
                     <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
                 </ul>
             </Rooter>
