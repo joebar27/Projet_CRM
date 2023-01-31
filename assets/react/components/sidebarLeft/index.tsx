@@ -7,6 +7,7 @@ import {BiStats} from "react-icons/bi";
 import {ImUsers} from "react-icons/im";
 import {GoGraph} from "react-icons/go";
 import {AiOutlineLogout} from "react-icons/ai";
+import authentificationService from '../../services/authentificationService';
 
 
 interface IProps {
@@ -14,6 +15,10 @@ interface IProps {
 }
 
 const SidebarLeft: React.FC<IProps> = () => {
+    const handleLogout = () => {
+        authentificationService.logout();
+        window.location.href = '/login';
+    };
     return(
         <Container>
             <Logo>
@@ -25,7 +30,7 @@ const SidebarLeft: React.FC<IProps> = () => {
                     <li><Link to={"/clients"}><ImUsers/>Listes</Link></li>
                     <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
                     <li><Link to={"/stats"}><GoGraph/>Gestion utilisateurs</Link></li>
-                    <Link to={"/logout"}><AiOutlineLogout />Déconnexion</Link>
+                    <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
                 </ul>
             </Rooter>
         </Container>
@@ -42,6 +47,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    a{
+        cursor: pointer;
+    }
 `;
 
 const Logo = styled.div`
@@ -101,6 +109,7 @@ const Logout = styled.div`
         padding: 2% 0;
         text-decoration: none;
         color: white;
+        cursor: pointer;
     }
 `;
 
