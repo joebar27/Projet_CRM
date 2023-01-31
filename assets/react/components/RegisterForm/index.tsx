@@ -1,14 +1,96 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import apiFetcher from '../../services/apiFetcher';
 import logo from '../../../img/logo.svg';
+import Loader from '../Loader';
 
 interface IProps {
 
 }
 
 const RegisterForm: React.FC<IProps> = () => {
+
+    const [error, setError] = React.useState<string>();
+    const [errorMail, setErrorMail] = React.useState<string>();
+    const [email, setEmail] = React.useState<string>(" ");
+    const [isLoading, setLoading] = React.useState(false);
+    const [submited, setSubmited] = React.useState<boolean>(false);
+    const [firstRender, setFirstRender] = React.useState<boolean>(true);
+    const [colorMail, setColorMail] = React.useState<string>('#0a0047');
+    const [colorDefault, setColorDefault] = React.useState<string>('#0a0047');
+
+    useEffect(() => {
+        if (submited && sessionStorage.getItem('token')) {
+            setSubmited(true);
+            setError('');
+        }
+    },[]);
+
+    useEffect(() => {
+        if (firstRender) {
+            setFirstRender(false);
+            return;
+        }
+        if(email === "" || email === "*"){
+            setErrorMail('Veuillez remplir ce champ');
+            setColorMail('#bb0000');
+        }else if(email.match("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$") === null ){
+            setErrorMail('veuillez entrer une adresse mail valide');
+            setColorMail('#bb0000');
+        }else {
+            setErrorMail('');
+            setColorMail('#0a0047');
+        }
+        
+    },[email]);
+
+    const register = async (e:any) => {
+        
+        setLoading(true);
+        setSubmited(true);
+
+        e.preventDefault();
+        const formData = new FormData(e.target);
+    
+        const data:any = {
+            first_name: formData.get('firstname'),
+            last_name: formData.get('lastname'),
+            email: formData.get('email'),
+            phone: formData.get('phone') ?? null,
+            address: formData.get('address') ?? "",
+            city: formData.get('city') ?? "",
+            zip_code: formData.get('zip_code') ?? null,
+        };
+
+        if(data.first_name === "" || data.last_name === "" || data.email === ""){
+            setError('Veuillez remplir les champs Nom, Prenom et email');
+            setLoading(false);
+            return;   
+        }
+
+        if(errorMail !== ""){
+            setError('Veuillez remplir les champs Nom, Prenom et email correctement');
+            setLoading(false);
+            return;
+        }
+
+
+        
+        let reponse = await apiFetcher.postApiFetcher('/api/register', data);
+
+        if(reponse.data.status === "User exist"){
+            setError(reponse.data.message);
+            setLoading(false);
+            return;
+        }else {
+            setError('');
+            setLoading(false);
+            window.location.href = '/';
+        }
+
+    }
+
     return(
         <Container>
             <Form onSubmit={register}>
@@ -17,7 +99,7 @@ const RegisterForm: React.FC<IProps> = () => {
                 
                 <Line>
                     <Col1>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Nom"
                             name ='lastname'
@@ -25,7 +107,7 @@ const RegisterForm: React.FC<IProps> = () => {
                     </Col1>
 
                     <Col2>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Prénom"
                             name ='firstname'
@@ -35,7 +117,7 @@ const RegisterForm: React.FC<IProps> = () => {
                 
                 <Line>
                     <Col1>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Tél."
                             name ='phone'
@@ -43,7 +125,7 @@ const RegisterForm: React.FC<IProps> = () => {
                     </Col1>
 
                     <Col2>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Adresse"
                             name ='address'
@@ -53,7 +135,7 @@ const RegisterForm: React.FC<IProps> = () => {
 
                 <Line>
                     <Col1>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Ville"
                             name ='city'
@@ -61,7 +143,7 @@ const RegisterForm: React.FC<IProps> = () => {
                     </Col1>
 
                     <Col2>
-                        <Input 
+                        <Input color={colorDefault}
                             type="text" 
                             placeholder="Code postal"
                             name ='zip_code'
@@ -71,58 +153,39 @@ const RegisterForm: React.FC<IProps> = () => {
 
                 <Line>
                     <Col3>
-                        <Input 
-                            type="text" 
+                        <Input color={colorMail}
+                            onClick={(e) => {
+                                if (e.target.value === "") {
+                                    setEmail('*');
+                                }}
+                            }
+                            onChange={ (e) =>
+                                setEmail(e.target.value)
+                            }
+                            type="email" 
                             placeholder="Email"
                             name ='email'
+                            defaultValue={email}
                          />
                     </Col3>
                 </Line>
+                <Content>
+                    {errorMail && <p className="text-danger">{errorMail}</p>}
+                </Content>
 
-                <Line>
-                    <Col3>
-                        <Input 
-                            type="password" 
-                            placeholder="Mot de passe"
-                            name ='password'
-                         />
-                    </Col3>
-                </Line>
+                <Button>Enregistrer</Button>
 
-                <Line>
-                    <Col3>
-                        <Input 
-                            type="password" 
-                            placeholder="Confirmation de mot de passe"
-                            name ='confirm_password'
-                         />
-                    </Col3>
-                </Line>
-
-                <Button>S'enregistrer</Button>
+                <Content>
+                    {isLoading && <Loader></Loader>}
+                    {error && <p className="text-danger">{error}</p>}
+                </Content>
             </Form>
         </Container>
     );
 };
 
 
-const register = async (e:any) => {
-    e.preventDefault();
 
-    const formData = new FormData(e.target);
-
-    const data:any = {
-        firstname: formData.get('firstname'),
-        lastname: formData.get('lastname'),
-        email: formData.get('email'),
-        password: formData.get('password')
-    };
-    
-    let reponse = await apiFetcher.postApiFetcher('/api/register', data);
-
-    console.log(reponse);
-        //redirect to dashboard
-}
 
 const Container = styled.div`
     display: flex;
@@ -139,7 +202,7 @@ const Form = styled.form`
     align-items: center;
     justify-content: center;
     width: 30%;
-    height: 70%;
+    height: 80%;
     background-color: #FFFFFF;
     border-radius: 10px;
     border: 5px solid #0a0047;
@@ -151,13 +214,16 @@ const Title = styled.h1`
     margin-bottom: 2rem;
 `;
 
-const Input = styled.input`
+const Input = styled.input <{color: string}>`
     width: 80%;
     height: 2rem;
     border-radius: 15px;
-    border: 2px solid #0a0047;
+    border: 2px solid ${props => props.color};
     margin-bottom: 1rem;
     padding-left: 1rem;
+    &::placeholder {
+        color: ${props => props.color} ;
+    }
 `;
 
 const Button = styled.button`
@@ -197,4 +263,7 @@ const Col3 = styled.div`
     margin-left:3%;
 `;
 
+const Content = styled.div`
+    padding: 0 2rem;
+`
 export default RegisterForm;
