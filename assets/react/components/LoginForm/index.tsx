@@ -82,9 +82,7 @@ const LoginForm: React.FC = () => {
         }
         
         let reponse = await apiFetcher.postApiFetcher('/api/login_check', data);
-        console.log(reponse);
 
-        console.log(reponse.data.token);
         if(reponse.data.token === undefined){
             setError(reponse.data.message);
             setLoading(false);
@@ -93,10 +91,11 @@ const LoginForm: React.FC = () => {
             setError('')
             authentificationService.loggin(reponse.data.token);
             setLoading(false);
+            // redirection vers la page d'accueil
+            window.location.href = '/'; 
         }
 
-        // redirection vers la page d'accueil
-        window.location.href = '/'; 
+        
     }
 
     return(

@@ -7,6 +7,7 @@ import {BiStats} from "react-icons/bi";
 import {ImUsers} from "react-icons/im";
 import {GoGraph} from "react-icons/go";
 import {AiOutlineLogout} from "react-icons/ai";
+import authentificationService from '../../services/authentificationService';
 
 
 interface IProps {
@@ -14,40 +15,46 @@ interface IProps {
 }
 
 const SidebarLeft: React.FC<IProps> = () => {
+    const handleLogout = () => {
+        authentificationService.logout();
+        window.location.href = '/login';
+    };
     return(
         <Container>
             <Logo>
-                <img src="https://freesvg.org/img/Google_logo_white_2015.png" alt="Logo" />
+                <ProfileImg src={require('../../../img/logo.png')} />
             </Logo>
             <Rooter>
                 <ul>
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
-                    <li><Link to={"/clients"}><ImUsers/>Client list</Link></li>
+                    <li><Link to={"/clients"}><ImUsers/>Listes</Link></li>
                     <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
-                    <li><Link to={"/register"}><GoGraph/>Inscription</Link></li>
-                    <li><Link to={"/articles"}><GoGraph/>Articles</Link></li>
+                    <li><Link to={"/stats"}><GoGraph/>Gestion utilisateurs</Link></li>
+                    <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
                 </ul>
             </Rooter>
-            <Logout>
-                <Link to={"/logout"}><AiOutlineLogout />sign out</Link>
-            </Logout>
         </Container>
     );
 };
 
 const Container = styled.div`
-    background-color: #6f6af8;
-    width: 40%;
-    height: 100vh;
+    background-color: #0A0047;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 16rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    // border-radius: 0px 35px 35px 0px;
+    a{
+        cursor: pointer;
+    }
 `;
 
 const Logo = styled.div`
     width: 100%;
-    background-color: #6f6af8;
+    background-color: #0A0047;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,14 +62,17 @@ const Logo = styled.div`
     // border-radius: 0px 35px 0px 0px;
     img{
         margin-top : 15%;
-        width: 75%;
+        width: 55%;
     }
 `;
+
+const ProfileImg = styled.img`
+`
 
 const Rooter = styled.nav`
     display: flex;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 15%;
     ul{
         font-size: 1.5rem;
         list-style: none;
@@ -71,7 +81,7 @@ const Rooter = styled.nav`
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: white;
+            color : white;
             gap : 25px;
             margin: 10% 0;
         }
@@ -99,6 +109,7 @@ const Logout = styled.div`
         padding: 2% 0;
         text-decoration: none;
         color: white;
+        cursor: pointer;
     }
 `;
 
