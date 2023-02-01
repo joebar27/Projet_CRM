@@ -7,6 +7,10 @@ const PUBLIC_KEY = "pk_test_51MP4JIDouJcaqTebjqTxwUqTXYocyNFFHre5VEEZn8CUa5IJiTK
 const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
 const Stripe = ()=>{
+
+    // const option = {
+    //     clientSecret: 'pi_1JKS2Y2VYugoKSBzNHPFBNj9_secret_niLMVIt33lBGf0z6Gt5WIGc3C',
+    // };
     return(
         <Elements stripe={stripeTestPromise} >
             <CheckoutForm />
