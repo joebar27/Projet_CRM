@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
-import {BiStats} from "react-icons/bi";
-import {ImUsers} from "react-icons/im";
-import {GoGraph} from "react-icons/go";
+import {RiMoneyEuroCircleLine} from "react-icons/ri";
+import {RiMoneyEuroCircleFill} from "react-icons/ri";
+import {MdArticle} from "react-icons/md";
+import {ImStatsBars} from "react-icons/im";
+import {FaUserAlt} from "react-icons/fa";
 import {AiOutlineLogout} from "react-icons/ai";
 import authentificationService from '../../services/authentificationService';
 
@@ -27,9 +29,11 @@ const SidebarLeft: React.FC<IProps> = () => {
             <Rooter>
                 <ul>
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
-                    <li><Link to={"/clients"}><ImUsers/>Listes</Link></li>
-                    <li><Link to={"/stats"}><GoGraph/>Graphiques</Link></li>
-                    <li><Link to={"/stats"}><GoGraph/>Gestion utilisateurs</Link></li>
+                    <li><Link to={"/articles"}><MdArticle/>Articles</Link></li>
+                    <li><Link to={"/devis"}><RiMoneyEuroCircleLine/>Devis</Link></li>
+                    <li><Link to={"/factures"}><RiMoneyEuroCircleFill/>Factures</Link></li>
+                    <li><Link to={"/stats"}><ImStatsBars/>Graphiques</Link></li>
+                    <li><Link to={"/register"}><FaUserAlt/>Utilisateurs</Link></li>
                     <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
                 </ul>
             </Rooter>

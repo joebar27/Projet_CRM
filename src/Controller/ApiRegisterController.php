@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
+use App\Service\SendMail;
+use App\Service\RandomString;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,8 +16,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiRegisterController extends AbstractController
 {
+
+    public function __construct(private UserPasswordHasherInterface $passwordHasher)
+    {
+    }
     #[Route('/api/register', name: 'app_api_register')]
-    public function index(Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
+    public function index(Request $request, UserRepository $userRepository, ManagerRegistry $doctrine, SendMail $sendMail, RandomString $randomString): Response
     {
         $formData = $request->getContent();
         $data = json_decode($formData, true);
@@ -35,6 +42,15 @@ class ApiRegisterController extends AbstractController
             $em->persist($newUser);
             $em->flush();
 
+            $user=$userRepository->findOneBy(['email' => $data['email']]);
+            $token = $randomString->randomString(9);
+            $user->setToken($token);
+            $user->setDateToken(new \DateTimeImmutable());
+            $em->persist($user);
+            $em->flush();
+            $sendMail->sendMail($user, $token);
+            
+
             return $this->json([$newUser,'status' => 'success', 'message' => 'success'], Response::HTTP_OK, );
         }
 
@@ -46,7 +62,7 @@ class ApiRegisterController extends AbstractController
     }
 
     #[Route('/api/register/confirm/{token}', name: 'app_api_register_confirm')]
-    public function confirm($token, UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
+    public function confirm($token, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $user = $userRepository->findOneBy(['token' => $token]);
         $data = json_decode($request->getContent(), true);
@@ -83,6 +99,7 @@ class ApiRegisterController extends AbstractController
             $user->setToken(null);
             $user->setDateToken(null);
             $user->setVerified(true);
+            $user->setDateVerif(new \DateTimeImmutable());
 
             $em = $doctrine->getManager();
             $em->persist($user);
