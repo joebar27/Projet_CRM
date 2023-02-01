@@ -10,8 +10,10 @@ interface IProps {
 const NewDepositBtn: React.FC<IProps> = () => {
 
     return (
-        <AddButton>
-        <Link to={"/addarticle"}><AddIcon className="iconify" data-inline="false" data-icon="mdi-light:plus" ></AddIcon></Link>
+        <AddButton>            
+            <Link to={"/addarticle"}>
+                <AddIcon className="iconify" data-inline="false" data-icon="mdi-light:plus" ></AddIcon>
+            </Link>
         </AddButton>
     );
 
@@ -41,28 +43,5 @@ const AddIcon = styled.span`
     color: white;
     font-size: 36px;
 `
-const Rooter = styled.nav`
-    display: flex;
-    width: 100%;
-    margin-top: 15%;
-    ul{
-        font-size: 1.5rem;
-        list-style: none;
-        font-family: 'Roboto', sans-serif;
-        a{
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color : white;
-            gap : 25px;
-            margin: 10% 0;
-        }
-
-        img{
-            with : 25px;
-            height : 25px;
-        }
-    }
-`;  
 
 export default NewDepositBtn

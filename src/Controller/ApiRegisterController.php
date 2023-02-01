@@ -30,19 +30,20 @@ class ApiRegisterController extends AbstractController
         if (!$user) {
             $newUser = new User();
             $newUser->setEmail($data['email']);
-            $newUser->setRoles($data['role']);
+            $newUser->setRoles(['ROLE_ADMIN']);
             $newUser->setFirstName($data['first_name']);
             $newUser->setLastName($data['last_name']);
             $newUser->setAddress($data['address']);
             $newUser->setCity($data['city']);
             $newUser->setZipCode($data['zip_code']);
-            $newUser->setPhoneNumber($data['phone']);
+            $newUser->setPhoneNumber($data['phone_number']);
+            $newUser->setCreatedAt(new \DateTimeImmutable());
 
             $em = $doctrine->getManager();
             $em->persist($newUser);
             $em->flush();
-
-            $user=$userRepository->findOneBy(['email' => $data['email']]);
+            
+            $user = $userRepository->findOneBy(['email' => $data['email']]);
             $token = $randomString->randomString(9);
             $user->setToken($token);
             $user->setDateToken(new \DateTimeImmutable());
