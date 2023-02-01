@@ -8,14 +8,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiRegisterController extends AbstractController
 {
     #[Route('/api/register', name: 'app_api_register')]
-    public function index(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
+    public function index(Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $formData = $request->getContent();
         $data = json_decode($formData, true);
@@ -47,7 +46,7 @@ class ApiRegisterController extends AbstractController
     }
 
     #[Route('/api/register/confirm/{token}', name: 'app_api_register_confirm')]
-    public function confirm($token, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
+    public function confirm($token, UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $user = $userRepository->findOneBy(['token' => $token]);
         $data = json_decode($request->getContent(), true);

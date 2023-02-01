@@ -83,7 +83,7 @@ class ApiDevisFactureController extends AbstractController
             return $this->json(['status' => 'devis not found', 'message' => 'Le devis a déja été payé'], Response::HTTP_UNAUTHORIZED, );
         }
         if ($devis->getTypeOfPayment() === null) {
-            $devis->setTypeOfPayment('cb');
+            $devis->setTypeOfPayment('stripe');
             $devis->setStatusPayment('facture');
             $devis->setUpdatedDate(new \DateTime());
 
