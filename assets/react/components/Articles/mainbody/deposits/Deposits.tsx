@@ -3,7 +3,15 @@ import styled from 'styled-components'
 import SortingBar from './sortingbar'
 import Deposit from './Deposit'
 
-const Deposits = ({ title, data, count }) => {
+
+interface IProps {
+    title: string;
+    data: any;
+    count: number;
+}
+
+
+const Deposits : React.FC<IProps> = ({ title, data, count }) => {
 
     return (
         <Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {BsBoxArrowRight, BsList} from "react-icons/bs";
@@ -8,8 +8,10 @@ import SidebarRight from "../sidebarRight";
 import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
 import depositData from '../../DepositData.json';
-import authentificationService from "../../services/authentificationService";
 import AnnualReview from "../Charts/ReviewCharts/AnnualReview";
+import authentificationService from "../../services/authentificationService";
+import apiFetcher from "../../services/apiFetcher";
+
 
 interface IProps {
 
@@ -17,10 +19,24 @@ interface IProps {
 
 const Mainbody: React.FC<IProps> = () => {
 
+    const [data, setData] = React.useState<any>([]);
+
+    const getApiFetcher = async () => {
+        let response  = await apiFetcher.getApiFetcher('http://localhost:8000/api/allarticles');
+        let data = response.data[0];
+        setData(data);
+    }
+    useEffect(() => {
+        getApiFetcher();
+    }, []);
+    
+
+    
     if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
         return(
             <Container>
                 <SidebarRight></SidebarRight>
+                <AnnualReview data={data} ></AnnualReview>
                 <NewDepositBtn />
                 <Deposits title="Facture en cours" count={2} data={depositData.active} />
                 <Deposits title="Facture cloturée" count={8} data={depositData.closed} />

@@ -4,6 +4,7 @@ import apiFetcher from '../../../../services/apiFetcher';
 import Loader from '../../../Loader';
 import Ratio from './Ratio';
 
+
 interface IProps {
 
 }
