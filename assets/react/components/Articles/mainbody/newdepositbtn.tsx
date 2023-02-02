@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiFillHome } from 'react-icons/ai'
+import {RiAddCircleFill} from 'react-icons/ri'
 
 
 interface IProps {
@@ -10,19 +11,20 @@ interface IProps {
 const NewDepositBtn: React.FC<IProps> = () => {
 
     return (
+         <Link to={"/addarticle"}>
         <AddButton>            
-            <Link to={"/addarticle"}>
-                <AddIcon className="iconify" data-inline="false" data-icon="mdi-light:plus" ></AddIcon>
-            </Link>
+                <RiAddCircleFill color="#0a0047" fontSize="3em"/>
         </AddButton>
+        </Link>
     );
 
 
 };
 
 
-const AddButton = styled.a`
-    background-color: #0a0047;
+const AddButton = styled.div`
+    background-color: #FBFBFB;
+    color : black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,15 +35,8 @@ const AddButton = styled.a`
     top: 6rem;
     right: 7rem;
     cursor: pointer;
-    transition: all ease-in-out 300ms;
-    &:hover {
-        /* box-shadow: 10px 10px 8px -8px rgba(117, 194, 130, 0.6); */
-    }
+
 `
 
-const AddIcon = styled.span`
-    color: white;
-    font-size: 36px;
-`
 
 export default NewDepositBtn
