@@ -11,6 +11,7 @@ import Deposits from "./deposits/Desposits";
 import depositData from '../../../DepositData.json';
 import apiFetcher from "../../../services/apiFetcher";
 import { use } from "echarts";
+import authentificationService from "../../../services/authentificationService";
 
 interface IProps {
 
@@ -28,13 +29,21 @@ const Mainbody: React.FC<IProps> = () => {
         getApiFetcher();
     }, []);
 
-    return(
-        <Container>
-            <SidebarRight></SidebarRight>
-            <NewDepositBtn />
-            <Deposits title="Articles" count={5} data={depositData.active} />
-        </Container>
-    );
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <NewDepositBtn />
+                <Deposits title="Articles" count={5} data={depositData.active} />
+            </Container>
+        );
+    };
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <Deposits title="Articles" count={5} data={depositData.active} />
+            </Container>
+        );
 };
 
 const Container = styled.div`
