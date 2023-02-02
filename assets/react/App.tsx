@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Articles from './pages/Articles';
 import AddArticle from './pages/AddArticle';
+import Paiement from './pages/Paiement';
 import Devis from './pages/Devis';
 import Factures from './pages/Factures';
 
@@ -21,9 +22,9 @@ root.render(
                 <Route path="register" element={<Register/>}/>
                 <Route path="articles" element={<Articles/>}/>
                 <Route path="addarticle" element={<AddArticle/>}/>
+                <Route path="paiement" element={<Paiement/>}/>
                 <Route path="devis" element={<Devis/>}/>
                 <Route path="factures" element={<Factures/>}/>
-
             </Route>
 
         </Routes>
