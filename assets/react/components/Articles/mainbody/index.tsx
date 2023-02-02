@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {BsBoxArrowRight, BsList} from "react-icons/bs";
@@ -9,12 +9,25 @@ import NewDepositBtn from './NewDepositBtn';
 import Deposits from "./deposits/Desposits";
 
 import depositData from '../../../DepositData.json';
+import apiFetcher from "../../../services/apiFetcher";
+import { use } from "echarts";
 
 interface IProps {
 
 }
 
 const Mainbody: React.FC<IProps> = () => {
+
+    const getApiFetcher = async () => {
+        let response  = await apiFetcher.getApiFetcher('http://localhost:8000/api/allarticles');
+        let data = response.data;
+        console.log(data);
+    }
+
+    useEffect(() => {
+        getApiFetcher();
+    }, []);
+
     return(
         <Container>
             <SidebarRight></SidebarRight>

@@ -7,7 +7,6 @@ import jwtDecode from "../services/jwtDecode";
 import authentificationService from "../services/authentificationService";
 
 interface IProps {
-
 }
 
 

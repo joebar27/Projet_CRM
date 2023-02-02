@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import apiOps from "./apiFetcherOps";
+
 
 
 interface IFormData {
@@ -20,7 +20,11 @@ const getApiFetcher = async ($url:any ) => {
 
     try {
         await fetch($url,{
-            ...apiOps,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                "Authorization": "Bearer " + sessionStorage.getItem('token'),
+            },
             method: 'GET',
         }).then(res => res.json()).then(json => {
             response.success = true;
@@ -49,7 +53,11 @@ const postApiFetcher = async ($url:any, credentials:IFormData ) =>{
 
     try {
         await fetch($url,{
-            ...apiOps,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                "Authorization": "Bearer " + sessionStorage.getItem('token'),
+            },
             method: 'POST',
             body: JSON.stringify(credentials),
         }).then(res => res.json()).then(json => {
