@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -37,7 +38,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 8, 
         max: 50, 
@@ -112,12 +112,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         )]
     private ?string $phoneNumber = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]    
+    private ?string $token = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date_token = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $date_verif = null;
+
+    #[ORM\Column]
+    private ?bool $verified = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->date_token = new \DateTimeImmutable();
+        $this->date_verif = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -262,6 +277,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -270,6 +297,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDateToken(): ?\DateTimeImmutable
+    {
+        return $this->date_token;
+    }
+
+    public function setDateToken(\DateTimeImmutable $date_token): self
+    {
+        $this->date_token = $date_token;
+
+        return $this;
+    }
+
+    public function getDateVerif(): ?\DateTimeImmutable
+    {
+        return $this->date_verif;
+    }
+
+    public function setDateVerif(\DateTimeImmutable $date_verif): self
+    {
+        $this->date_verif = $date_verif;
+
+        return $this;
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->verified;
+    }
+
+    public function setVerified(bool $verified): self
+    {
+        $this->verified = $verified;
 
         return $this;
     }

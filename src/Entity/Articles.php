@@ -169,4 +169,21 @@ class Articles
 
         return $this;
     }
+
+    // public function getInfos(): array
+    // {
+    //     return [
+    //         'id' => $this->getId(),
+    //         'name' => $this->getName(),
+    //         'description' => $this->getDescription(),
+    //         'availability' => $this->getAvailability(),
+    //         'price_HT' => $this->getPriceHT(),
+    //         'TVA' => $this->getTVA(),
+    //         'quantity' => $this->getQuantity(),
+    //         'updated_Date' => $this->getUpdatedDate(),
+    //         'created_Date' => $this->getCreatedDate(),
+    //         'deleted_Date' => $this->getDeletedDate(),
+    //         'reference' => $this->getReference(),
+    //     ];
+    // }
 }
