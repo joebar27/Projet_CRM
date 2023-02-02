@@ -22,7 +22,7 @@ const Mainbody: React.FC<IProps> = () => {
             <Container>
                 <SidebarRight></SidebarRight>
                 <NewDepositBtn />
-                <Deposits title="Facture en cours" count={2} data={depositData.active} />
+                <Deposits title="Derniers évènements" count={2} data={depositData.active} />
                 <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
             </Container>
         );
