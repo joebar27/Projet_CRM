@@ -21,6 +21,26 @@ const SidebarLeft: React.FC<IProps> = () => {
         authentificationService.logout();
         window.location.href = '/login';
     };
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        return(
+            <Container>
+                <Logo>
+                    <ProfileImg src={require('../../../img/logo.png')} />
+                </Logo>
+                <Rooter>
+                    <ul>
+                        <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
+                        <li><Link to={"/articles"}><MdArticle/>Articles</Link></li>
+                        <li><Link to={"/devis"}><RiMoneyEuroCircleLine/>Devis</Link></li>
+                        <li><Link to={"/factures"}><RiMoneyEuroCircleFill/>Factures</Link></li>
+                        <li><Link to={"/stats"}><ImStatsBars/>Graphiques</Link></li>
+                        <li><Link to={"/register"}><FaUserAlt/>Utilisateurs</Link></li>
+                        <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
+                    </ul>
+                </Rooter>
+            </Container>
+        );
+    };
     return(
         <Container>
             <Logo>
@@ -29,7 +49,6 @@ const SidebarLeft: React.FC<IProps> = () => {
             <Rooter>
                 <ul>
                     <li><Link to={"/"}><AiFillHome/>Dashboard</Link></li>
-                    <li><Link to={"/articles"}><MdArticle/>Articles</Link></li>
                     <li><Link to={"/devis"}><RiMoneyEuroCircleLine/>Devis</Link></li>
                     <li><Link to={"/factures"}><RiMoneyEuroCircleFill/>Factures</Link></li>
                     <li><Link to={"/paiement"}><MdArticle/>Paiements</Link></li>
@@ -40,6 +59,7 @@ const SidebarLeft: React.FC<IProps> = () => {
             </Rooter>
         </Container>
     );
+
 };
 
 const Container = styled.div`

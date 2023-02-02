@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
 import apiFetcher from '../../../../services/apiFetcher';
 import Loader from '../../../Loader';
-import Ratio from './Ratio';
 
 interface IProps {
 
 }
 
-const ArticleForm: React.FC<IProps> = () => {
+const DevisForm: React.FC<IProps> = () => {
+
     const [error, setError] = React.useState<string>();
-    const [errorMail, setErrorMail] = React.useState<string>("");
-    const [reference, setReference] = React.useState<string>(" ");
+    const [errorMail, setErrorMail] = React.useState<string>();
+    const [name, setName] = React.useState<string>("");
     const [isLoading, setLoading] = React.useState(false);
     const [submited, setSubmited] = React.useState<boolean>(false);
     const [firstRender, setFirstRender] = React.useState<boolean>(true);
@@ -30,17 +31,18 @@ const ArticleForm: React.FC<IProps> = () => {
             setFirstRender(false);
             return;
         }
-        if(reference === "" || reference === "*"){
+        if(name === "" || name === "*"){
             setErrorMail('Veuillez remplir ce champ');
             setColorMail('#bb0000');
+            setName('');
         }else {
             setErrorMail('');
             setColorMail('#0a0047');
         }
         
-    },[reference]);
+    },[name]);
 
-    const article = async (e:any) => {
+    const register = async (e:any) => {
         
         setLoading(true);
         setSubmited(true);
@@ -50,102 +52,64 @@ const ArticleForm: React.FC<IProps> = () => {
     
         const data:any = {
             description: formData.get('description'),
-            name: formData.get('name'),
-            priceHT: formData.get('priceHT') ?? null,
+            Name: formData.get('Name'),
+            price: formData.get('price') ?? null,
             quantity: formData.get('quantity') ?? "",
-            reference: formData.get('reference') ?? "",
-            availability: formData.get('availability') ?? "",
-            TVA: formData.get('tva') ?? "",
-
-
         };
 
-        if(data.priceHT === "" || data.last_name === "" || data.quantity === "" || data.description === "" || data.reference === "" || data.tva === ""){
-            setError('Veuillez remplir les champs nom, description, quantité, prix et référence');
+        if(data.price === "" || data.name=== "" || data.quantity === "" || data.description === ""){
+            setError('Veuillez remplir les champs nom, description, quantité et prix');
             setLoading(false);
             return;   
         }
 
         if(errorMail !== ""){
-            setError('Veuillez remplir les champs nom, description, quantité, prix et référence correctement');
+            setError('Veuillez remplir les champs nom, description, test et prix correctement');
             setLoading(false);
             return;
         }
 
 
-        console.log(data);
-        let reponse = await apiFetcher.postApiFetcher('/api/addarticle', data);
-        console.log(reponse);
+        
+        let reponse = await apiFetcher.postApiFetcher('/api/adddevis', data);
 
-        if(reponse.data.status !== "article creation error"){
+        if(reponse.data.status === "article creation error"){
             setError(reponse.data.message);
             setLoading(false);
             return;
         }else {
             setError('');
             setLoading(false);
-            //window.location.href = '/articles';
+            window.location.href = '/articles';
         }
 
     }
 
     return(
         <Container>
-            <Form onSubmit={article}>
+            <Form onSubmit={register}>
                 <Title>Ajout d'un article</Title>
                 
                 <Line>
                     <Col1>
                         <Input color={colorDefault}
+                            onClick={(e) => {
+                                if (e.target.value === "") {
+                                    setName('*');
+                                }}
+                            }
+                            onChange={ (e) =>
+                                setName(e.target.value)
+                            }
                             type="text" 
                             placeholder="Nom"
-                            name ='name'
+                            name ='Name'
+                            defaultValue={name}
                         />
                     </Col1>
-                    <Col2>
-                        <Input color={colorDefault}
-                            type="text" 
-                            placeholder="Référence"
-                            name ='reference'
-                         />
-                    </Col2>
-                </Line>
-                
-                <Line>
-                    <Col1>
-                        <Input color={colorDefault}
-                            type="text" 
-                            placeholder="Prix"
-                            name ='priceHT'
-                        />
-                    </Col1>
-
-                    <Col2>
-                        <Input color={colorDefault}
-                            type="text" 
-                            placeholder="TVA"
-                            name ='tva'
-                         />
-                    </Col2>
-                </Line>
-
-                <Line>
-                    <Col1>
-                    <Input color={colorDefault}
-                            type="text" 
-                            placeholder="Disponibilité"
-                            name ='availability'
-                         />
-                        {/* <Ratio></Ratio> */}
-                    </Col1>
-
-                    <Col2>
-                        <Input color={colorDefault}
-                            type="text" 
-                            placeholder="Quantité"
-                            name ='quantity'
-                         />
-                    </Col2>
+                    <Content>
+                        {errorMail && <p className="text-danger">{errorMail}</p>}
+                    </Content>
                 </Line>
 
                 <Line>
@@ -157,6 +121,25 @@ const ArticleForm: React.FC<IProps> = () => {
                             />
                     </Col3>
                 </Line>
+                
+                <Line>
+                    <Col1>
+                        <Input color={colorDefault}
+                            type="text" 
+                            placeholder="Prix"
+                            name ='price'
+                        />
+                    </Col1>
+
+                    <Col2>
+                        <Input color={colorDefault}
+                            type="text" 
+                            placeholder="Quantité"
+                            name ='quantity'
+                         />
+                    </Col2>
+                </Line>
+
 
                 <Button>Enregistrer</Button>
 
@@ -168,6 +151,8 @@ const ArticleForm: React.FC<IProps> = () => {
         </Container>
     );
 };
+
+
 
 
 
@@ -210,7 +195,6 @@ const Input = styled.input <{color: string}>`
     }
 `;
 
-
 const Button = styled.button`
     width:  85%;
     height: 2rem;
@@ -251,4 +235,4 @@ const Col3 = styled.div`
 const Content = styled.div`
     padding: 0 2rem;
 `
-export default ArticleForm;
+export default DevisForm;

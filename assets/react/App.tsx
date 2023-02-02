@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import Articles from './pages/Articles';
 import AddArticle from './pages/AddArticle';
 import Paiement from './pages/Paiement';
+import Devis from './pages/Devis';
+import Factures from './pages/Factures';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -21,6 +23,8 @@ root.render(
                 <Route path="articles" element={<Articles/>}/>
                 <Route path="addarticle" element={<AddArticle/>}/>
                 <Route path="paiement" element={<Paiement/>}/>
+                <Route path="devis" element={<Devis/>}/>
+                <Route path="factures" element={<Factures/>}/>
             </Route>
 
         </Routes>
