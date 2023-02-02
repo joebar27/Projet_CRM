@@ -15,10 +15,6 @@ class ApiArticlesController extends AbstractController
     #[Route('/api/allarticles', name: 'api_all_articles')]
     public function getAllArticles(ArticlesRepository $articlesRepository): Response
     {
-        // $articles = [];
-        // foreach ($articlesRepository->findAll() as $key => $value) {
-        //     $articles[] = $value->getInfos();
-        // }
         // récupération de tous les articles en BDD
         $articles = $articlesRepository->findAll();
         // affichage des articles:

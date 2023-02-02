@@ -19,7 +19,7 @@ const Mainbody: React.FC<IProps> = () => {
         <Container>
             <SidebarRight></SidebarRight>
             <NewDepositBtn />
-            <Deposits title="Articles" count={5} data={depositData.active} />
+            <Deposits title="Devis" count={5} data={depositData.active} />
         </Container>
     );
 };
