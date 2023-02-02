@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Articles from './pages/Articles';
 import AddArticle from './pages/AddArticle';
+import Devis from './pages/Devis';
+import Factures from './pages/Factures';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -19,6 +21,9 @@ root.render(
                 <Route path="register" element={<Register/>}/>
                 <Route path="articles" element={<Articles/>}/>
                 <Route path="addarticle" element={<AddArticle/>}/>
+                <Route path="devis" element={<Devis/>}/>
+                <Route path="factures" element={<Factures/>}/>
+
             </Route>
 
         </Routes>

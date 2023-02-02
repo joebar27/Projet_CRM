@@ -5,17 +5,18 @@ import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
 import {BiStats} from "react-icons/bi";
 import SidebarRight from "../sidebarRight";
-import NewDepositBtn from './NewDepositBtn';
+import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
-
 import depositData from '../../DepositData.json';
 import authentificationService from "../../services/authentificationService";
+import AnnualReview from "../Charts/ReviewCharts/AnnualReview";
 
 interface IProps {
 
 }
 
 const Mainbody: React.FC<IProps> = () => {
+
     if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
         return(
             <Container>
@@ -34,6 +35,8 @@ const Mainbody: React.FC<IProps> = () => {
             </Container>
         );
     };
+};
+
 
 const Container = styled.div`
     width: 100%;

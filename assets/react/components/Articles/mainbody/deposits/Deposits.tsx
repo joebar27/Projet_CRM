@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import SortingBar from './SortingBar'
+import SortingBar from './sortingbar'
 import Deposit from './Deposit'
 
 const Deposits = ({ title, data, count }) => {
