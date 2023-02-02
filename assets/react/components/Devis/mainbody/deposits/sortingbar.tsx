@@ -4,11 +4,11 @@ import styled from "styled-components";
 const SortingBar = () => {
     return (
         <Container>
-            <ID>ID</ID>
-            <Name>Société</Name>
-            <Articles>Articles</Articles>
-            <Price>Prix HT</Price>
-            <Status>Status devis</Status>
+            <SocietyInfos>Société infos</SocietyInfos>
+            <ArticlesInfos>Articles infos</ArticlesInfos>
+            <TotalPriceHT>Total HT</TotalPriceHT>
+            <TotalPriceTTC>Total TTC</TotalPriceTTC>
+            <TypePayment>Type de payement</TypePayment>
         </Container>
     );
 };
@@ -28,22 +28,24 @@ const Text = styled.h1`
     color: white;
 `;
 
-const ID = styled(Text)`
+const SocietyInfos = styled(Text)`
+    width: 35%;
+`;
+
+const ArticlesInfos = styled(Text)`
+    width: 35%;
+`;
+
+const TotalPriceHT = styled(Text)`
     width: 10%;
 `;
 
-const Name = styled(Text)`
-    width: 30%;
+const TotalPriceTTC = styled(Text)`
+    width: 10%;
 `;
 
-const Articles = styled(Text)`
-    width: 30%;
+const TypePayment = styled(Text)`
+    width: 10%;
 `;
-
-const Price = styled(Text)`
-    width: 15%;
-`;
-
-const Status = styled(Text)``;
 
 export default SortingBar;

@@ -11,7 +11,7 @@ interface IProps {
 const NewDepositBtn: React.FC<IProps> = () => {
 
     return (
-         <Link to={"/addarticle"}>
+         <Link to={"/adddevis"}>
         <AddButton>            
                 <RiAddCircleFill color="#0a0047" fontSize="3em"/>
         </AddButton>

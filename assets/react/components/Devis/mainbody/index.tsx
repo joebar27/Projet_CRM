@@ -8,7 +8,7 @@ import SidebarRight from "../../sidebarRight";
 import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Deposits";
 
-import depositData from '../../../DepositData.json';
+import depositData from '../../../DevisData.json';
 
 interface IProps {
 
@@ -19,7 +19,7 @@ const Mainbody: React.FC<IProps> = () => {
         <Container>
             <SidebarRight></SidebarRight>
             <NewDepositBtn />
-            <Deposits title="Devis" count={5} data={depositData.active} />
+            <Deposits title="Devis" count={5} data={depositData} />
         </Container>
     );
 };

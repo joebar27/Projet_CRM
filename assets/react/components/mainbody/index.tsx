@@ -35,8 +35,6 @@ const Mainbody: React.FC<IProps> = () => {
             </Container>
         );
     };
-};
-
 
 const Container = styled.div`
     width: 100%;

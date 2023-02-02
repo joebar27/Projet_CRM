@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom';
 import apiFetcher from '../../../../services/apiFetcher';
 import Loader from '../../../Loader';
 
@@ -42,7 +41,7 @@ const DevisForm: React.FC<IProps> = () => {
         
     },[name]);
 
-    const register = async (e:any) => {
+    const devis = async (e:any) => {
         
         setLoading(true);
         setSubmited(true);
@@ -51,25 +50,25 @@ const DevisForm: React.FC<IProps> = () => {
         const formData = new FormData(e.target);
     
         const data:any = {
-            description: formData.get('description'),
-            Name: formData.get('Name'),
-            price: formData.get('price') ?? null,
-            quantity: formData.get('quantity') ?? "",
+            society_infos: formData.get('society_infos'),
+            article_infos: formData.get('article_infos'),
+            total_price_ht: formData.get('total_price_ht') ?? null,
+            total_price_ttc: formData.get('total_price_ttc') ?? "",
+            type_of_payment: formData.get('type_of_payment') ?? "",
+            status_payment: formData.get('status_payment') ?? "",
         };
 
-        if(data.price === "" || data.name=== "" || data.quantity === "" || data.description === ""){
-            setError('Veuillez remplir les champs nom, description, quantité et prix');
+        if(data.society_infos === "" || data.article_infos=== "" || data.total_price_ht === "" || data.total_price_ttc === "" || data.type_of_payment === "" || data.status_payment === ""){
+            setError('Veuillez remplir les champs manquant');
             setLoading(false);
             return;   
         }
 
         if(errorMail !== ""){
-            setError('Veuillez remplir les champs nom, description, test et prix correctement');
+            setError('Veuillez remplir les champs correctement');
             setLoading(false);
             return;
         }
-
-
         
         let reponse = await apiFetcher.postApiFetcher('/api/adddevis', data);
 
@@ -80,14 +79,14 @@ const DevisForm: React.FC<IProps> = () => {
         }else {
             setError('');
             setLoading(false);
-            window.location.href = '/articles';
+            window.location.href = '/devis';
         }
 
     }
 
     return(
         <Container>
-            <Form onSubmit={register}>
+            <Form onSubmit={devis}>
                 <Title>Ajout d'un article</Title>
                 
                 <Line>
@@ -116,8 +115,8 @@ const DevisForm: React.FC<IProps> = () => {
                     <Col3>
                         <Input color={colorDefault}
                                 type="textarea" 
-                                placeholder="Description"
-                                name ='description'
+                                placeholder="Infos société"
+                                name ='society_infos'
                             />
                     </Col3>
                 </Line>
@@ -126,16 +125,16 @@ const DevisForm: React.FC<IProps> = () => {
                     <Col1>
                         <Input color={colorDefault}
                             type="text" 
-                            placeholder="Prix"
-                            name ='price'
+                            placeholder="Infos articles"
+                            name ='article_infos'
                         />
                     </Col1>
 
                     <Col2>
                         <Input color={colorDefault}
                             type="text" 
-                            placeholder="Quantité"
-                            name ='quantity'
+                            placeholder="Prix total ht"
+                            name ='total_price_ht'
                          />
                     </Col2>
                 </Line>
