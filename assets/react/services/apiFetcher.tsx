@@ -14,11 +14,25 @@ interface IResponse {
 }
 
 const getApiFetcher = async ($url:any ) => {
-    const response = await fetch($url,{
-        ...apiOps,
-        method: 'GET',
-    });
-    return await response.json();
+    const response:IResponse = {
+        success: false,
+    };
+
+    try {
+        await fetch($url,{
+            ...apiOps,
+            method: 'GET',
+        }).then(res => res.json()).then(json => {
+            response.success = true;
+            response['data'] = json;
+        }).catch(err => {
+            response.error = err && err.response && err.response.data ? err.response.data : err.message ;
+        });
+    } catch (err:any) {
+        response['error'] = err.message;
+    }
+
+    return response;
 }
 
 

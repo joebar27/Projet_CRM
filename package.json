@@ -29,6 +29,8 @@
         "@stripe/stripe-js": "^1.46.0",
         "@types/react-icons": "^3.0.0",
         "@types/react-router-dom": "^5.3.3",
+        "axios": "^1.2.3",
+        "echarts": "^5.4.1",
         "axios": "^0.24.0",
         "lgx-axios-dev-tools": "^1.0.3",
         "localforage": "^1.10.0",
@@ -41,6 +43,7 @@
         "react-icons": "^4.7.1",
         "react-jwt": "^1.1.8",
         "react-router-dom": "^6.4.5",
+        "recharts": "^2.3.2",
         "sort-by": "^0.0.2",
         "stripe": "^11.8.0",
         "styled-components": "^5.3.6"

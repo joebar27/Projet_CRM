@@ -9,6 +9,7 @@ import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
 
 import depositData from '../../DepositData.json';
+import AnnualReview from "../Charts/ReviewCharts/AnnualReview";
 
 interface IProps {
 
@@ -18,6 +19,7 @@ const Mainbody: React.FC<IProps> = () => {
     return(
         <Container>
             <SidebarRight></SidebarRight>
+            <AnnualReview ></AnnualReview>
             <NewDepositBtn />
             <Deposits title="Derniers événements" count={2} data={depositData.active} />
             <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
