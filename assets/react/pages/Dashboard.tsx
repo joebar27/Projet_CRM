@@ -12,19 +12,19 @@ interface IProps {
 
 
 const Dashboard : React.FC<IProps> = () => {
-    // if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
         return(
             <Container>
                 <SidebarLeft></SidebarLeft>
                 <Mainbody></Mainbody>
             </Container>
         );
-    // }
-    // else if (!sessionStorage.getItem('token')){
-    //     window.location.href = '/login';
-    // }else{
-    //     alert('Vous n\'avez pas les droits pour accéder à cette page');
-    // }
+    }
+    else if (!sessionStorage.getItem('token')){
+        window.location.href = '/login';
+    }else{
+        alert('Vous n\'avez pas les droits pour accéder à cette page');
+    }
 };
 
 const Container = styled.div`

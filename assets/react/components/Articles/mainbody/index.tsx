@@ -9,19 +9,28 @@ import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Deposits";
 
 import depositData from '../../../DepositData.json';
+import authentificationService from "../../../services/authentificationService";
 
 interface IProps {
 
 }
 
 const Mainbody: React.FC<IProps> = () => {
-    return(
-        <Container>
-            <SidebarRight></SidebarRight>
-            <NewDepositBtn />
-            <Deposits title="Articles" count={5} data={depositData.active} />
-        </Container>
-    );
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <NewDepositBtn />
+                <Deposits title="Articles" count={5} data={depositData.active} />
+            </Container>
+        );
+    };
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <Deposits title="Articles" count={5} data={depositData.active} />
+            </Container>
+        );
 };
 
 const Container = styled.div`

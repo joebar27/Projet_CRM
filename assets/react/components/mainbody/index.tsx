@@ -7,8 +7,8 @@ import {BiStats} from "react-icons/bi";
 import SidebarRight from "../sidebarRight";
 import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
-
 import depositData from '../../DepositData.json';
+import authentificationService from "../../services/authentificationService";
 import AnnualReview from "../Charts/ReviewCharts/AnnualReview";
 
 interface IProps {
@@ -16,16 +16,27 @@ interface IProps {
 }
 
 const Mainbody: React.FC<IProps> = () => {
-    return(
-        <Container>
-            <SidebarRight></SidebarRight>
-            <AnnualReview ></AnnualReview>
-            <NewDepositBtn />
-            <Deposits title="Derniers événements" count={2} data={depositData.active} />
-            <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
-        </Container>
-    );
+
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <NewDepositBtn />
+                <Deposits title="Facture en cours" count={2} data={depositData.active} />
+                <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
+            </Container>
+        );
+    };
+        return(
+            <Container>
+                <SidebarRight></SidebarRight>
+                <Deposits title="Vos facture en cours" count={2} data={depositData.active} />
+                <Deposits title="Vos facture cloturée" count={8} data={depositData.closed} />
+            </Container>
+        );
+    };
 };
+
 
 const Container = styled.div`
     width: 100%;
