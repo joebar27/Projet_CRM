@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom';
 import apiFetcher from '../../../../services/apiFetcher';
 import Loader from '../../../Loader';
+
 
 interface IProps {
 
 }
 
-const RegisterForm: React.FC<IProps> = () => {
-
+const ArticleForm: React.FC<IProps> = () => {
     const [error, setError] = React.useState<string>();
-    const [errorMail, setErrorMail] = React.useState<string>();
-    const [name, setName] = React.useState<string>(" ");
+    const [errorMail, setErrorMail] = React.useState<string>("");
+    const [reference, setReference] = React.useState<string>(" ");
     const [isLoading, setLoading] = React.useState(false);
     const [submited, setSubmited] = React.useState<boolean>(false);
     const [firstRender, setFirstRender] = React.useState<boolean>(true);
@@ -31,7 +30,7 @@ const RegisterForm: React.FC<IProps> = () => {
             setFirstRender(false);
             return;
         }
-        if(name === "" || name === "*"){
+        if(reference === "" || reference === "*"){
             setErrorMail('Veuillez remplir ce champ');
             setColorMail('#bb0000');
         }else {
@@ -39,9 +38,9 @@ const RegisterForm: React.FC<IProps> = () => {
             setColorMail('#0a0047');
         }
         
-    },[name]);
+    },[reference]);
 
-    const register = async (e:any) => {
+    const article = async (e:any) => {
         
         setLoading(true);
         setSubmited(true);
@@ -51,42 +50,48 @@ const RegisterForm: React.FC<IProps> = () => {
     
         const data:any = {
             description: formData.get('description'),
-            last_name: formData.get('lastname'),
-            price: formData.get('price') ?? null,
+            name: formData.get('name'),
+            priceHT: formData.get('priceHT') ?? null,
             quantity: formData.get('quantity') ?? "",
+            reference: formData.get('reference') ?? "",
+            availability: formData.get('availability') ?? "",
+            TVA: formData.get('tva') ?? "",
+
+
         };
 
-        if(data.price === "" || data.last_name === "" || data.quantity === "" || data.description === ""){
-            setError('Veuillez remplir les champs nom, description, quantité et prix');
+        if(data.priceHT === "" || data.last_name === "" || data.quantity === "" || data.description === "" || data.reference === "" || data.tva === ""){
+            setError('Veuillez remplir les champs nom, description, quantité, prix et référence');
             setLoading(false);
             return;   
         }
 
         if(errorMail !== ""){
-            setError('Veuillez remplir les champs nom, description, quantité et prix correctement');
+            setError('Veuillez remplir les champs nom, description, quantité, prix et référence correctement');
             setLoading(false);
             return;
         }
 
 
-        
-        let reponse = await apiFetcher.postApiFetcher('/api/register', data);
+        console.log(data);
+        let reponse = await apiFetcher.postApiFetcher('/api/addarticle', data);
+        console.log(reponse);
 
-        if(reponse.data.status === "Product exist"){
+        if(reponse.data.status !== "article creation error"){
             setError(reponse.data.message);
             setLoading(false);
             return;
         }else {
             setError('');
             setLoading(false);
-            window.location.href = '/articles';
+            //window.location.href = '/articles';
         }
 
     }
 
     return(
         <Container>
-            <Form onSubmit={register}>
+            <Form onSubmit={article}>
                 <Title>Ajout d'un article</Title>
                 
                 <Line>
@@ -94,19 +99,16 @@ const RegisterForm: React.FC<IProps> = () => {
                         <Input color={colorDefault}
                             type="text" 
                             placeholder="Nom"
-                            name ='lastname'
+                            name ='name'
                         />
                     </Col1>
-                </Line>
-
-                <Line>
-                    <Col3>
+                    <Col2>
                         <Input color={colorDefault}
-                                type="textarea" 
-                                placeholder="Description"
-                                name ='description'
-                            />
-                    </Col3>
+                            type="text" 
+                            placeholder="Référence"
+                            name ='reference'
+                         />
+                    </Col2>
                 </Line>
                 
                 <Line>
@@ -114,8 +116,27 @@ const RegisterForm: React.FC<IProps> = () => {
                         <Input color={colorDefault}
                             type="text" 
                             placeholder="Prix"
-                            name ='price'
+                            name ='priceHT'
                         />
+                    </Col1>
+
+                    <Col2>
+                        <Input color={colorDefault}
+                            type="text" 
+                            placeholder="TVA"
+                            name ='tva'
+                         />
+                    </Col2>
+                </Line>
+
+                <Line>
+                    <Col1>
+                    <Input color={colorDefault}
+                            type="text" 
+                            placeholder="Disponibilité"
+                            name ='availability'
+                         />
+                        {/* <Ratio></Ratio> */}
                     </Col1>
 
                     <Col2>
@@ -127,9 +148,15 @@ const RegisterForm: React.FC<IProps> = () => {
                     </Col2>
                 </Line>
 
-                <Content>
-                    {errorMail && <p className="text-danger">{errorMail}</p>}
-                </Content>
+                <Line>
+                    <Col3>
+                        <Input color={colorDefault}
+                                type="textarea" 
+                                placeholder="Description"
+                                name ='description'
+                            />
+                    </Col3>
+                </Line>
 
                 <Button>Enregistrer</Button>
 
@@ -141,7 +168,6 @@ const RegisterForm: React.FC<IProps> = () => {
         </Container>
     );
 };
-
 
 
 
@@ -184,6 +210,7 @@ const Input = styled.input <{color: string}>`
     }
 `;
 
+
 const Button = styled.button`
     width:  85%;
     height: 2rem;
@@ -224,4 +251,4 @@ const Col3 = styled.div`
 const Content = styled.div`
     padding: 0 2rem;
 `
-export default RegisterForm;
+export default ArticleForm;

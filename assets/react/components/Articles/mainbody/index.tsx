@@ -19,9 +19,11 @@ interface IProps {
 
 const Mainbody: React.FC<IProps> = () => {
 
+    let data = [];
+
     const getApiFetcher = async () => {
         let response  = await apiFetcher.getApiFetcher('http://localhost:8000/api/allarticles');
-        let data = response.data;
+        data = response.data;
         console.log(data);
     }
 
