@@ -1,16 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
+import {RiAddCircleFill} from 'react-icons/ri'
+import { Link } from 'react-router-dom'
+
+interface IProps {
+}
+
+const NewDepositBtn: React.FC<IProps> = () => {
+
+    return (
+         <Link to={"/addfacture"}>
+        <AddButton>            
+                <RiAddCircleFill color="#0a0047" fontSize="3em"/>
+        </AddButton>
+        </Link>
+    );
 
 
-const NewDepositBtn = () => (
-    <AddButton>
-        <AddIcon className="iconify" data-inline="false" data-icon="mdi-light:plus" ></AddIcon>
-    </AddButton>
-)
+};
 
 
-const AddButton = styled.a`
-    background-color: #0a0047;
+const AddButton = styled.div`
+    background-color: #FBFBFB;
+    color : black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,17 +33,8 @@ const AddButton = styled.a`
     top: 6rem;
     right: 7rem;
     cursor: pointer;
-    transition: all ease-in-out 300ms;
-    &:hover {
-        /* box-shadow: 10px 10px 8px -8px rgba(117, 194, 130, 0.6); */
-    }
-`
 
-const AddIcon = styled.span`
-    color: white;
-    font-size: 36px;
 `
-
 
 
 export default NewDepositBtn

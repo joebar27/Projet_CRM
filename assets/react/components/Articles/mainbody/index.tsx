@@ -5,7 +5,7 @@ import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
 import {BiStats} from "react-icons/bi";
 import SidebarRight from "../../sidebarRight";
-import NewDepositBtn from './NewDepositBtn';
+import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
 
 import depositData from '../../../DepositData.json';

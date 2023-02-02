@@ -5,7 +5,7 @@ import {BsBoxArrowRight, BsList} from "react-icons/bs";
 import {AiFillHome} from "react-icons/ai";
 import {BiStats} from "react-icons/bi";
 import SidebarRight from "../sidebarRight";
-import NewDepositBtn from './NewDepositBtn';
+import NewDepositBtn from "./newdepositbtn";
 import Deposits from "./deposits/Desposits";
 
 import depositData from '../../DepositData.json';
@@ -19,7 +19,7 @@ const Mainbody: React.FC<IProps> = () => {
         <Container>
             <SidebarRight></SidebarRight>
             <NewDepositBtn />
-            <Deposits title="Facture en cours" count={2} data={depositData.active} />
+            <Deposits title="Derniers événements" count={2} data={depositData.active} />
             <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
         </Container>
     );
