@@ -24,6 +24,7 @@ const Mainbody: React.FC<IProps> = () => {
     const getApiFetcher = async () => {
         let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/allarticles');
         let data = response.data[0];
+        console.log(data);
         setData(data);
     }
     useEffect(() => {
@@ -33,6 +34,7 @@ const Mainbody: React.FC<IProps> = () => {
 
     
     if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+        console.log(data);
         return(
             <Container>
                 <SidebarRight></SidebarRight>

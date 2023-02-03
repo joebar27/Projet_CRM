@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import apiOps from "./apiFetcherOps";
 
 interface IFormData {
     name: string | null;
