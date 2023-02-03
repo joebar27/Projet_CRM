@@ -8,7 +8,7 @@ const SortingBar = () => {
             <ArticlesInfos>Articles infos</ArticlesInfos>
             <TotalPriceHT>Total HT</TotalPriceHT>
             <TotalPriceTTC>Total TTC</TotalPriceTTC>
-            <TypePayment>Type de payement</TypePayment>
+            <TypePayment>Type de paiement</TypePayment>
         </Container>
     );
 };

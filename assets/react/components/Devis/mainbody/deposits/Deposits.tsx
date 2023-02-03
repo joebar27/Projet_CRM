@@ -5,6 +5,7 @@ import Deposit from './Deposit'
 
 const Deposits = ({ title, data, count }) => {
 
+    console.log(data);
     return (
         <Container>
             <Title>{title}<DepositsCount>{count}</DepositsCount></Title>

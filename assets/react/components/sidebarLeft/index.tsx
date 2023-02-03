@@ -34,7 +34,7 @@ const SidebarLeft: React.FC<IProps> = () => {
                         <li><Link to={"/devis"}><RiMoneyEuroCircleLine/>Devis</Link></li>
                         <li><Link to={"/factures"}><RiMoneyEuroCircleFill/>Factures</Link></li>
                         <li><Link to={"/stats"}><ImStatsBars/>Graphiques</Link></li>
-                        <li><Link to={"/paiement"}><FaUserAlt/>Payement</Link></li>
+                        <li><Link to={"/paiement"}><FaUserAlt/>Paiement</Link></li>
                         <li><Link to={"/register"}><FaUserAlt/>Utilisateurs</Link></li>
                         <a onClick={handleLogout}><AiOutlineLogout />Déconnexion</a>
                     </ul>

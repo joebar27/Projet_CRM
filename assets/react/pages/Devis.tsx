@@ -4,7 +4,7 @@ import SidebarLeft from "../components/sidebarLeft";
 import AddArticleForm from "../components/Articles/mainbody/AddArticleForm"
 import jwtDecode from "../services/jwtDecode";
 import authentificationService from "../services/authentificationService";
-import Mainbody from "../components/Articles/mainbody";
+import Mainbody from "../components/Devis/mainbody";
 
 interface IProps {
 
