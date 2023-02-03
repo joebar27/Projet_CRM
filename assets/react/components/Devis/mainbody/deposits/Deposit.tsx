@@ -3,8 +3,7 @@ import styled from 'styled-components'
 
 
 const Deposit = ({ data }) => {
-    console.log(data);
-    // const { societyInfos, article_infos, total_price_ht, total_price_ttc, type_of_payment, status_payment } = data;
+    
     return (
         <Container>
             <Property>

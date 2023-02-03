@@ -18,15 +18,14 @@ interface IProps {
 }
 
 const Mainbody: React.FC<IProps> = () => {
-
-    let data = [];
+    
+    const [data, setData] = React.useState<any>([]);
 
     const getApiFetcher = async () => {
         let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/allarticles');
-        data = response.data;
-        console.log(data);
+        let data = response.data[0];
+        setData(data);
     }
-
     useEffect(() => {
         getApiFetcher();
     }, []);
@@ -36,14 +35,14 @@ const Mainbody: React.FC<IProps> = () => {
             <Container>
                 <SidebarRight></SidebarRight>
                 <NewDepositBtn />
-                <Deposits title="Articles" count={5} data={depositData.active} />
+                <Deposits title="Articles" count={5} data={data} />
             </Container>
         );
     };
         return(
             <Container>
                 <SidebarRight></SidebarRight>
-                <Deposits title="Articles" count={5} data={depositData.active} />
+                <Deposits title="Articles" count={5} data={data} />
             </Container>
         );
 };

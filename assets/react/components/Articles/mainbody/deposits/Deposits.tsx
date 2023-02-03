@@ -12,13 +12,13 @@ interface IProps {
 
 
 const Deposits : React.FC<IProps> = ({ title, data, count }) => {
-
+console.log(data);
     return (
         <Container>
             <Title>{title}<DepositsCount>{count}</DepositsCount></Title>
             <SortingBar />
             {data.map(deposit => (
-                <Deposit data={deposit} key={deposit.property.address.street} />
+                <Deposit data={deposit} key={deposit.id} />
             ))}
         </Container>
     )

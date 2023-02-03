@@ -3,33 +3,32 @@ import styled from 'styled-components'
 
 
 const Deposit = ({ data }) => {
-    const { property, moveInDate, rent, deposit, status } = data;
 
     return (
         <Container>
             <Property>
-                <PropertyImg src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+                {/* <PropertyImg src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" /> */}
                 <PropertyText>
-                    <PropertyStreet>{property.address.street}</PropertyStreet>
-                    <Subtitle>{property.address.city} {property.address.state}</Subtitle>
+                    <PropertyStreet>{data.name}</PropertyStreet>
+                    <Subtitle>{data.description}</Subtitle>
                 </PropertyText>
             </Property>
-            <MoveInDate>{moveInDate}</MoveInDate>
-            <Rent>${rent}</Rent>
+            <MoveInDate>{data.createdDate}</MoveInDate>
+            <Quantity>{data.quantity}</Quantity>
             <DepositWrapper>
-                <Text>${deposit.amount}</Text>
-                <Subtitle>{deposit.type}</Subtitle>
+                <Text>${data.priceHT}</Text>
+                <Subtitle>{data.TVA}</Subtitle>
             </DepositWrapper>
             <Status>
-                <Text>{status.message}</Text>
-                {(() => {
+                <Text>{data.availability}</Text>
+                {/* {(() => {
                     switch (status.level) {
                         case 1: return <StatusIndicator color="#F17E7E" />;
                         case 2: return <StatusIndicator color="#FFD056" />;
                         case 3: return <StatusIndicator color="#75C282" />;
                         default: return <StatusIndicator color="#AAA5A5" />;
                     }
-                })()}
+                })()} */}
             </Status>
 
         </Container>
@@ -85,7 +84,7 @@ const PropertyStreet = styled(Text)`
 const MoveInDate = styled(Text)`
     width: 15%;
 `
-const Rent = styled(Text)`
+const Quantity = styled(Text)`
     width: 10%;
 `
 const DepositWrapper = styled.div`
