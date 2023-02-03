@@ -12,6 +12,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiDevisFactureController extends AbstractController
 {
+    #[Route('/api/getalldevisfacture', name: 'api_all_devis_facture')]
+    public function getAll(DevisFactureRepository $devisFactureRepository): Response
+    {
+        // récupération de tous les devis en BDD :
+
+        $all = $devisFactureRepository->findAll();
+
+        if (!$all) {
+            return $this->json(['status' => 'devis not found', 'message' => 'Aucun devis n\'a été trouvé'], Response::HTTP_UNAUTHORIZED, );
+        }
+
+        if ($all) {
+            return $this->json([$all,'status' => 'devis found success', 'message' => 'devis trouvé avec succes'], Response::HTTP_OK, );
+        }
+    }
+
     #[Route('/api/devis', name: 'api_devis')]
     public function getAllDevis(DevisFactureRepository $devisFactureRepository): Response
     {

@@ -5,13 +5,13 @@ import Deposit from './Deposit'
 
 const Deposits = ({ title, data, count }) => {
 
-    console.log(data);
     return (
         <Container>
             <Title>{title}<DepositsCount>{count}</DepositsCount></Title>
             <SortingBar />
             {data.map(deposit => (
-                <Deposit data={deposit} key={deposit.society_infos.name} />
+                // console.log(deposit),
+                <Deposit data={deposit} key={deposit.id} />
             ))}
         </Container>
     )

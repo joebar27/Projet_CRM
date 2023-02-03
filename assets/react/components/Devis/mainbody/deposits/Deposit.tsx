@@ -3,39 +3,27 @@ import styled from 'styled-components'
 
 
 const Deposit = ({ data }) => {
-    const { society_infos, articles_infos, total_price_ht, total_price_ttc, type_of_payment, status_payment } = data;
-
+    console.log(data);
+    // const { societyInfos, article_infos, total_price_ht, total_price_ttc, type_of_payment, status_payment } = data;
     return (
         <Container>
             <Property>
                 <PropertyImg src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
                 <PropertyText>
-                    <PropertyStreet>{society_infos.name}</PropertyStreet>
-                    <Subtitle>{society_infos.address} {society_infos.city} {society_infos.zip_code}</Subtitle>
+                    <PropertyStreet>{data.societyInfos.name}</PropertyStreet>
+                    <Subtitle>{data.societyInfos.address} {data.societyInfos.city} {data.societyInfos.zip_code}</Subtitle>
                 </PropertyText>
             </Property>
 
-            <MoveInDate>{articles_infos.name}</MoveInDate>
+            <MoveInDate>{data.articleInfos.name}</MoveInDate>
 
-            <Rent>${total_price_ht}</Rent>
-            <Rent>${total_price_ttc}</Rent>
+            <Rent>$ {data.totalPriceHT}</Rent>
+            <Rent>$ {data.totalPriceTTC}</Rent>
 
             <DepositWrapper>
-                <Text>${type_of_payment}</Text>
-                <Subtitle>{status_payment}</Subtitle>
+                <Text>{data.typeOfPayment}</Text>
+                <Subtitle>{data.statusPayment}</Subtitle>
             </DepositWrapper>
-            
-            {/* <Status>
-                <Text>{status.message}</Text>
-                {(() => {
-                    switch (status.level) {
-                        case 1: return <StatusIndicator color="#F17E7E" />;
-                        case 2: return <StatusIndicator color="#FFD056" />;
-                        case 3: return <StatusIndicator color="#75C282" />;
-                        default: return <StatusIndicator color="#AAA5A5" />;
-                    }
-                })()}
-            </Status> */}
 
         </Container>
     )

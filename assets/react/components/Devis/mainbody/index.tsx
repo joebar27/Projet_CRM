@@ -20,10 +20,9 @@ const Mainbody: React.FC<IProps> = () => {
     const [data, setData] = React.useState<any>([]);
 
     const getApiFetcher = async () => {
-        let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/allarticles');
+        let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/getalldevisfacture');
         let data = response.data[0];
         setData(data);
-        console.log(data);
     }
     useEffect(() => {
         getApiFetcher();
