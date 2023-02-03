@@ -3,7 +3,7 @@ import { isExpired, decodeToken } from "react-jwt";
 
 const jwtDecode = (token: string) => {
     if (isExpired(token)) {
-        console.log('Token expiré');
+        window.location.href = '/login'; 
     } else {
         const decodedToken = decodeToken(token);
         return decodedToken;

@@ -11,6 +11,7 @@ import depositData from '../../DepositData.json';
 import AnnualReview from "../Charts/ReviewCharts/AnnualReview";
 import authentificationService from "../../services/authentificationService";
 import apiFetcher from "../../services/apiFetcher";
+import DevisReview from "../Charts/DevisCharts/DevisReview";
 
 
 interface IProps {
@@ -20,15 +21,23 @@ interface IProps {
 const Mainbody: React.FC<IProps> = () => {
 
     const [data, setData] = React.useState<any>([]);
+    const [dataDevis, setDataDevis] = React.useState<any>([]);
 
     const getApiFetcher = async () => {
         let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/allarticles');
         let data = response.data[0];
         setData(data);
     }
+    const getApiFetcherDevis = async () => {
+        let response  = await apiFetcher.getApiFetcher('https://localhost:8000/api/getalldevisfacture');
+        let data = response.data[0];
+        setDataDevis(data);
+    }
     useEffect(() => {
         getApiFetcher();
+        getApiFetcherDevis();
     }, []);
+
     
 
     if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
