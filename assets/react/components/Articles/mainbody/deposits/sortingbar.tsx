@@ -5,11 +5,12 @@ import styled from 'styled-components'
 const SortingBar = () => {
     return (
         <Container>
-            <ID>ID</ID>
             <Name>Nom</Name>
             <Description>Description</Description>
+            <Date>Date</Date>
             <Price>Prix HT</Price>
             <Quantity>Quantité</Quantity>
+            <Disponibility>Disponibilité</Disponibility>
         </Container>
     )
 }
@@ -29,16 +30,19 @@ const Text = styled.h1`
     color: white;
 `
 
-const ID = styled(Text)`
+const Disponibility = styled(Text)`
     width: 10%;
 `
 
+const Date = styled(Text)`
+    width: 10%;
+`
 const Name = styled(Text)`
-    width: 30%;
+    width: 25%;
 `
 
 const Description = styled(Text)`
-    width: 30%;
+    width: 35%;
 `
 
 const Price = styled(Text)`
@@ -46,7 +50,7 @@ const Price = styled(Text)`
 `
 
 const Quantity = styled(Text)`
-    
+    width: 10%;
 `
 
-export default SortingBar
+export default SortingBar;

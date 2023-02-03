@@ -12,7 +12,6 @@ interface IProps {
 
 
 const Deposits : React.FC<IProps> = ({ title, data, count }) => {
-console.log(data);
     return (
         <Container>
             <Title>{title}<DepositsCount>{count}</DepositsCount></Title>

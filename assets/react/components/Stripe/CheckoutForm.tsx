@@ -38,13 +38,13 @@ export const CheckoutForm=()=>{
     }
 
     return(
-        <form onSubmit={handleSubmit} style={{ maxWidth: 600}}>
+        <form onSubmit={handleSubmit} style={{ maxWidth: 300, }}>
             <CardElement
                 options={{
                     hidePostalCode: true
                 }}
             />
-            <button disabled={!stripe}>Payer</button>
+            <button disabled={!stripe} style={{ fontSize: 20, fontFamily: 'Arial', borderRadius: 5, height: 30, width: 300, marginTop: 40, }}>Payer</button>
         </form>
     );
 };

@@ -10,15 +10,16 @@ const Deposit = ({ data }) => {
                 {/* <PropertyImg src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" /> */}
                 <PropertyText>
                     <PropertyStreet>{data.name}</PropertyStreet>
-                    <Subtitle>{data.description}</Subtitle>
+                    {/* <Subtitle>{data.description}</Subtitle> */}
                 </PropertyText>
             </Property>
+                    <Description>{data.description}</Description>
             <MoveInDate>{data.createdDate}</MoveInDate>
-            <Quantity>{data.quantity}</Quantity>
             <DepositWrapper>
                 <Text>${data.priceHT}</Text>
-                <Subtitle>{data.TVA}</Subtitle>
+                <Subtitle>TVA :{data.TVA}</Subtitle>
             </DepositWrapper>
+            <Quantity>{data.quantity}</Quantity>
             <Status>
                 <Text>{data.availability}</Text>
                 {/* {(() => {
@@ -63,9 +64,15 @@ const Subtitle = styled(Text)`
 `
 
 const Property = styled.div`
+    width: 20%;
+    display: flex;
+    align-items: center;
+`
+const Description = styled.div`
     width: 30%;
     display: flex;
     align-items: center;
+    margin-right: 1rem;
 `
 
 const PropertyText = styled.div`
@@ -83,12 +90,14 @@ const PropertyStreet = styled(Text)`
 `
 const MoveInDate = styled(Text)`
     width: 15%;
+    margin-right: 1rem;
 `
 const Quantity = styled(Text)`
     width: 10%;
 `
 const DepositWrapper = styled.div`
     width: 15%;
+    align-items: center;
 `
 const Status = styled.div`
     display: flex;

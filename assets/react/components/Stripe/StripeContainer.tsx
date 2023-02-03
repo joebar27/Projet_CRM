@@ -15,4 +15,24 @@ const Stripe = ()=>{
     );
 };
 
+// const Logout = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 100%;
+//     a{
+//         width: 100%;
+//         font-size: 1.5rem;
+//         font-family: 'Roboto', sans-serif;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         gap: 10px;
+//         padding: 2% 0;
+//         text-decoration: none;
+//         color: white;
+//         cursor: pointer;
+//     }
+// `;
+
 export default Stripe;
