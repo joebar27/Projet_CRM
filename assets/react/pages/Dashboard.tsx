@@ -13,7 +13,7 @@ interface IProps {
 const Dashboard : React.FC<IProps> = () => {
 
 
-    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')) {
+    if (sessionStorage.getItem('token') && authentificationService.getCurrentUserRoles().includes('ROLE_ADMIN')|| authentificationService.getCurrentUserRoles().includes('ROLE_USER')) {
         return(
             <>
                 <Container>

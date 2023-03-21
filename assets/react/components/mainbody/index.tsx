@@ -37,18 +37,18 @@ const Mainbody: React.FC<IProps> = () => {
                 <SidebarRight></SidebarRight>
                 <AnnualReview data={data} ></AnnualReview>
                 <NewDepositBtn />
-                <Deposits title="Facture en cours" count={2} data={depositData.active} />
-                <Deposits title="Facture cloturée" count={8} data={depositData.closed} />
+                <Deposits title="Derniers évènements" count={2} data={depositData.active} />
             </Container>
         );
-    };
+    }else {
         return(
             <Container>
                 <SidebarRight></SidebarRight>
                 <Deposits title="Vos facture en cours" count={2} data={depositData.active} />
-                <Deposits title="Vos facture cloturée" count={8} data={depositData.closed} />
+                <Deposits title="Vos facture cloturée" count={2} data={depositData.closed} />
             </Container>
         );
+    }
     };
 
 const Container = styled.div`
